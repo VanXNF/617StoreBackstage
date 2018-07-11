@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="admin" class="bean.vanxnf.Admin" scope="session" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>首页 · 617STORE后台管理</title>
     <link rel="stylesheet" href="frame/layui/css/layui.css">
-    <link rel="stylesheet" href="./frame/static/css/style.css">
+    <link rel="stylesheet" href="frame/static/css/style.css">
     <link rel="icon" href="images/favicon.png">
 </head>
 <body>
 
 <!-- layout admin -->
-<div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
+<div class="layui-layout layui-layout-admin">
     <!-- header -->
     <div class="layui-header my-header">
-        <a href="index.jsp">
+        <a href="Main.jsp">
             <img id="logo" class="my-header-logo" alt="logo">
             <div class="my-header-logo">后台管理</div>
         </a>
         <div class="my-header-btn">
-            <button class="layui-btn layui-btn-small btn-nav" style="background-color: #00000000"><i class="layui-icon" ><img id="nav_toggle" width="16px" height="16px"></i></button>
+            <button class="layui-btn layui-btn-small btn-nav" style="background-color: #00000000">
+                <i class="layui-icon" ><img id="nav_toggle" width="16px" height="16px"></i>
+            </button>
         </div>
 
         <!-- 顶部左侧添加选项卡监听 -->
@@ -48,10 +51,11 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><img src="./frame/static/image/code.png" alt="logo"> Admin </a>
+                <a class="name" href="javascript:;">
+                    <i class="layui-icon">&#9784;</i><jsp:getProperty name="admin" property="account"/>
+                </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
+                    <dd><a href="javascript:;" href-url="pages/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
                     <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
             </li>
@@ -63,7 +67,27 @@
         <div class="layui-side-scroll">
             <!-- 左侧主菜单添加选项卡监听 -->
             <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
-               <li class="layui-nav-item  layui-nav-itemed">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理订单</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>未完成订单</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>历史订单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理用户</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>用户列表</a></dd>
+                    </dl>
+                </li>
+               <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" href-url="demo/btn1.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
@@ -100,7 +124,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="demo/welcome.html" frameborder="0"></iframe>
+                    <iframe id="iframe" src="pages/welcome.html" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -132,14 +156,14 @@
 layui.use(['layer','Backstage_nav'], function () {
 
     // 操作对象
-    var layer       = layui.layer
-        ,vipNav     = layui.Backstage_nav
-        ,$          = layui.jquery;
+    var layer = layui.layer
+        ,BackstageNav = layui.Backstage_nav
+        ,$ = layui.jquery;
 
     // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
+    BackstageNav.top_left('./json/nav_top_left.json','side-top-left',false);
     // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.main('./json/nav_main.json','side-main',true);
+    BackstageNav.main('./json/nav_main.json','side-main',true);
 
     // you code ...
 
