@@ -1,8 +1,3 @@
-/**
- * Created by Administrator on 2017/5/20.
- * @name:   vip-admin 后台模板 菜单navJS
- * @author: 随丶
- */
 layui.define(['layer', 'element'], function (exports) {
     // 操作对象
     var layer = layui.layer
@@ -67,7 +62,7 @@ layui.define(['layer', 'element'], function (exports) {
     };
 
     // 输出
-    exports('vip_nav', mod);
+    exports('Backstage_nav', mod);
 });
 
 

@@ -171,7 +171,7 @@
                                         <h4>新增js功能</h4>
                                         <ul>
                                             <li>
-                                                <p>vip_table.js</p>
+                                                <p>Backstage_table.js</p>
                                                 <ul>
                                                     <li>getFullHeight方法  getFullHeight();    // 返回子页面整体高度,用于table组件设置全屏高度</li>
                                                 </ul>
@@ -195,14 +195,14 @@
                                         <h5>新增js功能。   详细可查看【frame/static/js】文件夹内的js</h5>
                                         <ul>
                                             <li>
-                                                <h4>vip_nav.js 【主页菜单js】</h4>
+                                                <h4>Backstage_nav.js 【主页菜单js】</h4>
                                                 <ul>
                                                     <li>main方法       main(请求地址,过滤ID,是否展开,携带参数);</li>
                                                     <li>top_left方法   top_left(请求地址,过滤ID,是否展开,携带参数);</li>
                                                 </ul>
                                             </li>
                                             <li>
-                                                <h4>vip_tab.js 【子页面操作父页面选项卡js】</h4>
+                                                <h4>Backstage_tab.js 【子页面操作父页面选项卡js】</h4>
                                                 <ul>
                                                     <li>add方法            add(操作对象，标签标题，url地址);</li>
                                                     <li>getThisTabId方法   getThisTabId();     // 返回当前展示页面父级窗口标签的lay-id</li>
@@ -210,7 +210,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <h4>vip_table.js 【表格js,该js属于整合】</h4>
+                                                <h4>Backstage_table.js 【表格js,该js属于整合】</h4>
                                                 <ul>
                                                     <li>deleteAll方法      deleteAll(ids,请求的url,操作成功跳转url,操作失败跳转url);</li>
                                                     <li>unixToDate方法     unixToDate(时间戳,是否只显示年月日时分,8);        // 返回正常时间</li>
@@ -413,11 +413,11 @@
 <script type="text/javascript" src="../js/index.js"></script>
 <script type="text/javascript" src="../frame/echarts/echarts.min.js"></script>
 <script type="text/javascript">
-    layui.use(['element', 'form', 'table', 'layer', 'vip_tab'], function () {
+    layui.use(['element', 'form', 'table', 'layer', 'Backstage_tab'], function () {
         var form = layui.form
                 , table = layui.table
                 , layer = layui.layer
-                , vipTab = layui.vip_tab
+                , vipTab = layui.Backstage_tab
                 , element = layui.element
                 , $ = layui.jquery;
 

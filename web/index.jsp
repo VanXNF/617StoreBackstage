@@ -6,10 +6,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>首页 · 后台模板 HTML</title>
+    <title>首页 · 617STORE后台管理</title>
     <link rel="stylesheet" href="frame/layui/css/layui.css">
     <link rel="stylesheet" href="./frame/static/css/style.css">
-    <link rel="icon" href="./frame/static/image/code.png">
+    <link rel="icon" href="images/favicon.png">
 </head>
 <body>
 
@@ -17,12 +17,12 @@
 <div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
     <!-- header -->
     <div class="layui-header my-header">
-        <a href="index.html">
-            <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">后台模板 HTML</div>
+        <a href="index.jsp">
+            <img id="logo" class="my-header-logo" alt="logo">
+            <div class="my-header-logo">后台管理</div>
         </a>
         <div class="my-header-btn">
-            <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
+            <button class="layui-btn layui-btn-small btn-nav" style="background-color: #00000000"><i class="layui-icon" ><img id="nav_toggle" width="16px" height="16px"></i></button>
         </div>
 
         <!-- 顶部左侧添加选项卡监听 -->
@@ -39,7 +39,6 @@
 
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
-            <li class="layui-nav-item"><a href="javascript:;" class="pay" href-url="">支持作者</a></li>
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
                 <dl class="layui-nav-child">
@@ -90,9 +89,7 @@
                         <dd><a href="javascript:;" href-url="demo/tips.html"><i class="layui-icon">&#xe621;</i>提示页</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ad6ba602ae228be2222ddb804086e0cfa42da3d74e34b383b665c2bec1adfc6e"><i class="layui-icon">&#xe61e;</i>加入群下载源码</a></li>
             </ul>
-
         </div>
     </div>
     <!-- body -->
@@ -114,12 +111,6 @@
     </div>
 </div>
 
-<!-- pay -->
-<div class="my-pay-box none">
-    <div><img src="./frame/static/image/zfb.png" alt="支付宝"><p>支付宝</p></div>
-    <div><img src="./frame/static/image/wx.png" alt="微信"><p>微信</p></div>
-</div>
-
 <!-- 右键菜单 -->
 <div class="my-dblclick-box none">
     <table class="layui-tab dblclick-tab">
@@ -136,13 +127,13 @@
 </div>
 
 <script type="text/javascript" src="frame/layui/layui.js"></script>
-<script type="text/javascript" src="./frame/static/js/vip_comm.js"></script>
+<script type="text/javascript" src="frame/static/js/Backstage_comm.js"></script>
 <script type="text/javascript">
-layui.use(['layer','vip_nav'], function () {
+layui.use(['layer','Backstage_nav'], function () {
 
     // 操作对象
     var layer       = layui.layer
-        ,vipNav     = layui.vip_nav
+        ,vipNav     = layui.Backstage_nav
         ,$          = layui.jquery;
 
     // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]

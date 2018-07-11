@@ -1,15 +1,14 @@
 /**
- * @name:   vip-admin 后台模板主入口
- * @author: 随丶
+ * @name: 后台主入口
  */
 
 // 配置
 layui.config({
     base: './frame/static/js/'  // 模块目录
 }).extend({                     // 模块别名
-    vip_nav: 'vip_nav'
-    , vip_tab: 'vip_tab'
-    , vip_table: 'vip_table'
+    Backstage_nav: 'Backstage_nav'
+    , Backstage_tab: 'Backstage_tab'
+    , Backstage_table: 'Backstage_table'
 });
 
 // 主入口方法
@@ -29,7 +28,7 @@ layui.use(['layer', 'element', 'util'], function () {
 
     //阻止IE7以下访问
     if (device.ie && device.ie < 8) {
-        layer.alert('如果您非得使用ie浏览vip-admin 后台模板，那么请使用ie8+');
+        layer.alert('如果您非得使用ie浏览后台，那么请使用ie8+');
     }
 
     // 导航栏收缩
@@ -221,6 +220,15 @@ layui.use(['layer', 'element', 'util'], function () {
     function skin() {
         var skin = localStorage.skin ? localStorage.skin : 0;
         var body = $('body');
+        var logo = $('#logo');
+        var nav_toggle = $('#nav_toggle');
+        if (skin == 1) {
+            logo.attr("src", 'images/logo.png');
+            nav_toggle.attr("src", 'images/open.png');
+        } else {
+            logo.attr("src", 'images/logo_white.png');
+            nav_toggle.attr("src", 'images/open_white.png');
+        }
         body.removeClass('skin-0');
         body.removeClass('skin-1');
         body.removeClass('skin-2');

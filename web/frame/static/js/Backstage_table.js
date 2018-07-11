@@ -1,7 +1,5 @@
 /**
- * Created by Administrator on 2017/08/25.
- * @name:   vip-admin 后台模板 表格JS功能
- * @author: 随丶
+ * @name: 后台 表格JS功能
  */
 layui.define(['layer', 'element'], function (exports) {
 
@@ -110,6 +108,6 @@ layui.define(['layer', 'element'], function (exports) {
     };
 
     // 输出
-    exports('vip_table', mod);
+    exports('Backstage_table', mod);
 });
 
