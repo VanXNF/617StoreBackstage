@@ -14,7 +14,7 @@
 <!-- 操作区域-新增 -->
 <form class="layui-form">
     <button type="button" class="layui-btn layui-btn-small add-tab" lay-id="1">
-        <a href="javascript:;" href-url="demo/_blank.html"><span><i class="layui-icon">&#xe621;</i>按照按钮上的数据生成选项卡</span></a>
+        <a href="javascript:;" href-url="pages/_blank.html"><span><i class="layui-icon">&#xe621;</i>按照按钮上的数据生成选项卡</span></a>
     </button>
     <button type="button" class="layui-btn layui-btn-small add-tab2">填写信息生成选项卡</button>
 </form>
@@ -25,7 +25,7 @@
 </form>
 <br/>
 <!-- 提示信息 -->
-<blockquote class="layui-elem-quote">详细操作方法请看：【demo/children.html】 js方法中，很简单，调用一个方法就行，一看就明白。</blockquote>
+<blockquote class="layui-elem-quote">详细操作方法请看：【pages/children.html】 js方法中，很简单，调用一个方法就行，一看就明白。</blockquote>
 
 <script type="text/javascript" src="../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
@@ -54,7 +54,7 @@
                 maxlength: 10
             }, function (val, index) {
                 // 添加选项卡[自身对象,标题,url地址]
-                vipTab.add($(this), val, 'demo/children.html'); // 有传入三个参数，第一个参数完全没有作用了，就是站位
+                vipTab.add($(this), val, 'pages/children.html'); // 有传入三个参数，第一个参数完全没有作用了，就是站位
                 // 关闭弹窗
                 layer.close(index);
             });

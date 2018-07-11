@@ -20,10 +20,6 @@ public class HandleLogin extends HttpServlet {
 
     private Admin admin = new Admin();
 
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/text; charset=utf-8");

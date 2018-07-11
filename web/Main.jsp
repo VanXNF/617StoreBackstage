@@ -30,18 +30,18 @@
 
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
-            <!--<li class="layui-nav-item"><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
+                    <dd><a href="javascript:;" href-url="pages/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
+                    <dd><a href="javascript:;" href-url="pages/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
                 </dl>
-            </li>-->
+            </li>
         </ul>
 
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
+            <%--主题切换--%>
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
                 <dl class="layui-nav-child">
@@ -50,17 +50,16 @@
                     <dd data-skin="2"><a href="javascript:;">蓝白</a></dd>
                 </dl>
             </li>
+            <%--账号操作--%>
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;">
                     <i class="layui-icon">&#9784;</i><jsp:getProperty name="admin" property="account"/>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="pages/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
                     <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
             </li>
         </ul>
-
     </div>
     <!-- side -->
     <div class="layui-side my-side">
@@ -70,47 +69,47 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理商品</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
+                        <dd><a href="javascript:;" href-url=""><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
+                        <dd><a href="javascript:;" href-url=""><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理订单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>未完成订单</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>历史订单</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/login.html"><i class="layui-icon">&#xe621;</i>未完成订单</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/register.html"><i class="layui-icon">&#xe621;</i>历史订单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理用户</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>用户列表</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/register.html"><i class="layui-icon">&#xe621;</i>用户列表</a></dd>
                     </dl>
                 </li>
                <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/btn1.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>表格</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tab-card.html"><i class="layui-icon">&#xe621;</i>选项卡</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/progress-bar.html"><i class="layui-icon">&#xe621;</i>进度条</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/folding-panel.html"><i class="layui-icon">&#xe621;</i>折叠面板</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/auxiliar.html"><i class="layui-icon">&#xe621;</i>辅助元素</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/btn1.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/table.html"><i class="layui-icon">&#xe621;</i>表格</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/tab-card.html"><i class="layui-icon">&#xe621;</i>选项卡</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/progress-bar.html"><i class="layui-icon">&#xe621;</i>进度条</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/folding-panel.html"><i class="layui-icon">&#xe621;</i>折叠面板</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/auxiliar.html"><i class="layui-icon">&#xe621;</i>辅助元素</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>扩展</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>注册页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/login2.html"><i class="layui-icon">&#xe621;</i>登录页2</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/add-edit.html"><i class="layui-icon">&#xe621;</i>添加-修改</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/data-table.html"><i class="layui-icon">&#xe621;</i>data-table 表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tree-table.html"><i class="layui-icon">&#xe621;</i>Tree table树表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/404.html"><i class="layui-icon">&#xe621;</i>404页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tips.html"><i class="layui-icon">&#xe621;</i>提示页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/register.html"><i class="layui-icon">&#xe621;</i>注册页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/login2.html"><i class="layui-icon">&#xe621;</i>登录页2</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/add-edit.html"><i class="layui-icon">&#xe621;</i>添加-修改</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/data-table.html"><i class="layui-icon">&#xe621;</i>data-table 表格页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/tree-table.html"><i class="layui-icon">&#xe621;</i>Tree table树表格页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/404.html"><i class="layui-icon">&#xe621;</i>404页</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/tips.html"><i class="layui-icon">&#xe621;</i>提示页</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -161,7 +160,7 @@ layui.use(['layer','Backstage_nav'], function () {
         ,$ = layui.jquery;
 
     // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    BackstageNav.top_left('./json/nav_top_left.json','side-top-left',false);
+    // BackstageNav.top_left('./json/nav_top_left.json','side-top-left',false);
     // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
     BackstageNav.main('./json/nav_main.json','side-main',true);
 
