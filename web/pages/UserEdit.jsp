@@ -33,7 +33,7 @@
 <body class="body">
 
 <% if (user != null) {%>
-    <form class="layui-form layui-form-pane" action="../api/userEdit" method="post">
+    <form id="dataForm" name="dataForm" class="layui-form layui-form-pane" action="../api/userEdit" method="post">
         <% if (status != null) {%>
             <div class="layui-form-item">
                 <div class="layui-input-inline">
@@ -49,13 +49,13 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" name="username" autocomplete="off" value="<%=user.getUsername()%>" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="password" name="password" value="<%=user.getPassword()%>" autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -88,47 +88,47 @@
                 </div>
             </div>
         </div>
+    </form>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <input type="submit" id="changeData" class="layui-btn layui-btn-normal" value="提交修改">
+                <input form="dataForm" type="submit" id="changeData" class="layui-btn layui-btn-normal" value="提交修改">
+            </div>
+            <div class="layui-inline">
+                <button id="deleteUser" class="layui-btn layui-btn-danger">删除用户</button>
             </div>
         </div>
+    <form id="deleteForm" action="../api/userDelete" method="post">
+        <input type="hidden" name="id" value="<%=user.getId()%>">
     </form>
-        <div class="layui-inline">
-            <form action="../api/userDelete" method="post">
-                <input type="hidden" name="id" value="<%=user.getId()%>">
-                <input type="submit" class="layui-btn layui-btn-danger" value="删除用户">
-            </form>
-        </div>
 
 
 <script src="../frame/layui/layui.js" charset="utf-8"></script>
 <script>
-    var $ = layui.jquery;
-    layui.use('layer', function() {
-        var layer = layui.layer;
-        <%--$("#changeData").on('click', function () {--%>
-            <%--layer.msg(<%=status%>, {--%>
-                <%--type: 3,--%>
-                <%--time: 2000 //2秒关闭（如果不配置，默认是3秒）--%>
-            <%--});--%>
-        <%--});--%>
 
-    });
-
-    layui.use('upload', function() {
+    layui.use(['upload', 'layer'], function() {
         var upload = layui.upload;
+        var $ = layui.jquery;
 
         upload.render({
             elem: '#choose'
             ,auto: false //选择文件后不自动上传
             ,choose: function(obj){
-
                 obj.preview(function(index, file, result) {
                     $("#avatar").val('/images/user/' + file.name);
                 });
             }
         });
+
+        var layer = layui.layer;
+
+        $("#deleteUser").on("click", function () {
+            layer.confirm('是否删除该用户数据？', function(index) {
+                $("#deleteForm").submit();
+                layer.close(index);
+                return false;
+            });
+        });
+
     });
 </script>
 <% } else {%>

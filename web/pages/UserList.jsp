@@ -24,6 +24,7 @@
 <div class="layui-btn-group toolTable">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+    <button class="layui-btn" id="btn-refresh"><i class="layui-icon">&#x1002;</i>刷新</button>
 </div>
 
 <!-- 表格 -->
@@ -37,15 +38,14 @@
     layui.use(['table', 'form', 'layer', 'Backstage_table', 'Backstage_tab'], function () {
 
         // 操作对象
-        var form = layui.form
-            , table = layui.table
+        var table = layui.table
             , layer = layui.layer
             , BackstageTable = layui.Backstage_table
             , $ = layui.jquery
             , BackstageTab = layui.Backstage_tab;
 
         // 表格渲染
-        table.render({
+        var tableIns = table.render({
             elem: '#dataTable'                  //指定原始表格元素选择器（推荐id选择器）
             , height: BackstageTable.getFullHeight() * 0.95    //容器高度
             , cols: [[                  //标题栏
@@ -68,6 +68,11 @@
             , done: function (res, curr, count) {
 
             }
+        });
+
+        // 刷新
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload();
         });
 
         table.on('tool(tables)', function(obj) {
