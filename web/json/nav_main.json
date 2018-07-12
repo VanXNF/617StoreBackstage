@@ -11,7 +11,7 @@
         },{
           "text": "商品列表",
           "icon": "&#xe621;",
-          "href": ""
+          "href": "pages/GoodsList.jsp"
         }
       ]
     },{

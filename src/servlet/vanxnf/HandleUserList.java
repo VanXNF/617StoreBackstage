@@ -20,7 +20,6 @@ public class HandleUserList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//        resp.setContentType("application/text; charset=utf-8");
         resp.setContentType("application/json; charset=utf-8");
         req.setCharacterEncoding("utf-8");
         int page = Integer.parseInt(req.getParameter("page"));

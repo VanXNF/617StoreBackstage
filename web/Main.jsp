@@ -70,7 +70,7 @@
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理商品</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" href-url=""><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
-                        <dd><a href="javascript:;" href-url=""><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/GoodsList.jsp"><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -98,7 +98,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="pages/welcome.html" frameborder="0"></iframe>
+                    <iframe id="iframe" src="pages/UserList.jsp" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
