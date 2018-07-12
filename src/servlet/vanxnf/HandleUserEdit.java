@@ -3,7 +3,6 @@ package servlet.vanxnf;
 import bean.vanxnf.User;
 import tools.Hasher;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

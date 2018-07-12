@@ -36,6 +36,10 @@
           "text": "用户列表",
           "icon": "&#xe621;",
           "href": "pages/UserList.jsp"
+        },{
+          "text": "新增用户",
+          "icon": "&#xe621;",
+          "href": "pages/AddUser.jsp"
         }
       ]
     },{
