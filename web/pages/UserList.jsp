@@ -56,14 +56,14 @@
                 , {field: 'email', title: '邮箱', width: 180}
                 , {field: 'registerdate', title: '注册时间', width: 120, sort:true}
                 , {fixed: 'right', title: '隐藏', width: 100, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
-                , {fixed: 'right', title: '查看', width: 100, align: 'center', toolbar: '#go'}
+                , {fixed: 'right', title: '编辑', width: 100, align: 'center', toolbar: '#go'}
             ]]
             , id: 'UserLists'
             , url: '/api/userList'
             , method: 'get'
             , page: true
             , limits: [5, 10, 15, 20, 30]
-            , limit: 5 //默认采用5
+            , limit: 15 //默认采用5
             , loading: true
             , done: function (res, curr, count) {
 
@@ -77,9 +77,8 @@
                     obj.del();
                     layer.close(index);
                 });
-            } else if(obj.event === 'show') {
-                var json = JSON.stringify(data);
-                BackstageTab.add($(this), "编辑用户信息", 'pages/UserEdit.jsp');
+            } else if(obj.event === 'edit') {
+                BackstageTab.add($(this), "编辑"+ data[''+'id'+''] +"号用户信息", '/api/userEdit?id='+ data[''+'id'+'']);
             }
         });
 
@@ -106,11 +105,11 @@
 
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="hide">隐藏</a>
+    <a class="layui-btn layui-btn-small layui-btn-danger" lay-event="hide">隐藏</a>
 </script>
 
 <script type="text/html" id="go">
-    <button type="button" class="layui-btn layui-btn-small add-tab2" lay-event="show">查看</button>
+    <button type="button" class="layui-btn layui-btn-small add-tab2" lay-event="edit">编辑</button>
 </script>
 
 </body>
