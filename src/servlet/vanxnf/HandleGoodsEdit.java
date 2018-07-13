@@ -1,9 +1,6 @@
 package servlet.vanxnf;
 
-import bean.vanxnf.Commodity;
-import bean.vanxnf.ParamWithImage;
-import bean.vanxnf.ParamWithoutImage;
-import bean.vanxnf.Parameter;
+import bean.vanxnf.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 @WebServlet(name = "GoodsEditServlet", urlPatterns = "/api/goodsEdit")
@@ -22,7 +16,7 @@ public class HandleGoodsEdit extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("text/html; charset=utf-8");
         req.setCharacterEncoding("utf-8");
         HttpSession session = req.getSession(true);
         String commodityId = req.getParameter("id");
@@ -51,12 +45,15 @@ public class HandleGoodsEdit extends HttpServlet {
                 commodity.setOverview(rs.getString("overview"));
                 commodity.setDate(rs.getDate("date"));
 //                获取商品主图
-                ps = con.prepareStatement("SELECT image FROM mainPicture WHERE commodity_id = ?;");
+                ps = con.prepareStatement("SELECT image_id,image FROM mainPicture WHERE commodity_id = ?;");
                 ps.setString(1, commodityId);
                 rsMainImage = ps.executeQuery();
-                ArrayList<String> mainImages = new ArrayList<>();
+                ArrayList<Image> mainImages = new ArrayList<>();
                 while (rsMainImage.next()) {
-                    mainImages.add(rsMainImage.getString("image"));
+                    Image image = new Image();
+                    image.setId(rsMainImage.getInt("image_id"));
+                    image.setUrl(rsMainImage.getString("image"));
+                    mainImages.add(image);
                 }
                 commodity.setMainImage(mainImages);
 
@@ -70,8 +67,8 @@ public class HandleGoodsEdit extends HttpServlet {
                 ArrayList<String> attrs = new ArrayList<>();
 //                存放带图属性的图片链接与对应值
                 ParamWithImage imageParam = new ParamWithImage();
-                ArrayList<String> value = new ArrayList<>();
-                ArrayList<String> image = new ArrayList<>();
+                ArrayList<Param> value = new ArrayList<>();
+                ArrayList<Image> images = new ArrayList<>();
 
                 while (rsImageParam.next()) {
                     int id = rsImageParam.getInt("attribute_id");
@@ -82,13 +79,19 @@ public class HandleGoodsEdit extends HttpServlet {
                     if (!attrs.contains(attribute)) {
                         attrs.add(attribute);
                     }
-                    value.add(rsImageParam.getString("value"));
-                    image.add(rsImageParam.getString("image"));
+                    Param param = new Param();
+                    param.setId(rsImageParam.getInt("parameter_id"));
+                    param.setContent(rsImageParam.getString("value"));
+                    value.add(param);
+                    Image image = new Image();
+                    image.setId(rsImageParam.getInt("image_id"));
+                    image.setUrl(rsImageParam.getString("image"));
+                    images.add(image);
                 }
 //                ImageFlag的值为带图属性个数
-                if (value.size() != 0 && image.size() != 0 && ids.size() != 0 && attrs.size() != 0) {
+                if (value.size() != 0 && images.size() != 0 && ids.size() != 0 && attrs.size() != 0) {
                     parameter.setImageFlag(ids.size());
-                    imageParam.setImage(image);
+                    imageParam.setImage(images);
                     imageParam.setValue(value);
                 } else {
                     ids.clear();
@@ -139,6 +142,69 @@ public class HandleGoodsEdit extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityId);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("text/html; charset=utf-8");
+        req.setCharacterEncoding("utf-8");
+        HttpSession session = req.getSession(true);
+
+        String commodityID = req.getParameter("commodityID");
+        String commodityTitle = req.getParameter("commodityTitle");
+        String oPrice = req.getParameter("OPrice");
+        String dPrice = req.getParameter("DPrice");
+        String quickView = req.getParameter("quickView");
+        String overView = req.getParameter("overview");
+
+        Commodity commodity = (Commodity) session.getAttribute("Commodity" + commodityID);
+        if (commodity != null) {
+            ArrayList<Image> mainImage = new ArrayList<>();
+            for (int i = 0; i < commodity.getMainImage().size(); i++) {
+                Image image = new Image();
+                image.setId(commodity.getMainImage().get(i).getId());
+                image.setUrl(req.getParameter("mainPic" + i));
+                mainImage.add(image);
+            }
+
+            Connection con;
+            PreparedStatement ps;
+            String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+            try {
+                con = DriverManager.getConnection(url,"root","abcphotovalley");
+                ps = con.prepareStatement("UPDATE commodity SET title = ?, original_price = ?, discount_price = ?, quick_review = ?, overview = ? WHERE id = ?;");
+                ps.setString(1, commodityTitle);
+                ps.setString(2, oPrice);
+                ps.setString(3, dPrice);
+                ps.setString(4, quickView);
+                ps.setString(5, overView);
+                ps.setString(6, commodityID);
+                int i = ps.executeUpdate();
+                if (i != 0) {
+                    commodity.setTitle(commodityTitle);
+                    commodity.setOriginalPrice(Double.parseDouble(oPrice));
+                    commodity.setDiscountPrice(Double.parseDouble(dPrice));
+                    commodity.setQuickReview(quickView);
+                    commodity.setOverview(overView);
+                } else {
+                    resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityID+"&status=1");
+                }
+                for (int j = 0; j < mainImage.size(); j++) {
+                    ps = con.prepareStatement("UPDATE image SET image = ? WHERE id = ?");
+                    ps.setString(1, mainImage.get(j).getUrl());
+                    ps.setString(2, String.valueOf(mainImage.get(j).getId()));
+                    int m = ps.executeUpdate();
+                    if (m == 0) {
+                        resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityID+"&status=2");
+                    }
+                }
+                commodity.setMainImage(mainImage);
+
+                resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityID+"&status=OK");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

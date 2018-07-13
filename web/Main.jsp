@@ -69,7 +69,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理商品</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url=""><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/AddGoods.jsp"><i class="layui-icon">&#xe621;</i>发布商品</a></dd>
                         <dd><a href="javascript:;" href-url="pages/GoodsList.jsp"><i class="layui-icon">&#xe621;</i>商品列表</a></dd>
                     </dl>
                 </li>
@@ -98,14 +98,16 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="pages/GoodsEdit.jsp" frameborder="0"></iframe>
+                    <iframe id="iframe" src="pages/welcome.html" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
     </div>
     <!-- footer -->
-    <div class="layui-footer my-footer">
-        
+    <div class="layui-footer my-footer" style="background: #4E5465">
+        <div align="left">
+            <p>© 2018 浙江科技学院·信息与电子工程学院·软件工程 许楠钒 陈喆 </p>
+        </div>
     </div>
 </div>
 

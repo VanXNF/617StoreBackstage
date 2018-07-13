@@ -7,7 +7,7 @@
         {
           "text": "发布商品",
           "icon": "&#xe621;",
-          "href": ""
+          "href": "pages/AddGoods.jsp"
         },{
           "text": "商品列表",
           "icon": "&#xe621;",
@@ -42,6 +42,10 @@
           "href": "pages/AddUser.jsp"
         }
       ]
+    },{
+      "text": "网站首页",
+      "icon": "&#xe628;",
+      "href": "http://192.168.4.174:8080/"
     },{
       "text": "LAYUI基础",
       "icon": "&#xe620;",

@@ -21,7 +21,7 @@ public class Commodity {
 
     private Date date;
 
-    private ArrayList<String> mainImage;
+    private ArrayList<Image> mainImage;
 
     public int getId() {
         return id;
@@ -87,11 +87,11 @@ public class Commodity {
         this.date = date;
     }
 
-    public ArrayList<String> getMainImage() {
+    public ArrayList<Image> getMainImage() {
         return mainImage;
     }
 
-    public void setMainImage(ArrayList<String> mainImage) {
+    public void setMainImage(ArrayList<Image> mainImage) {
         this.mainImage = mainImage;
     }
 }

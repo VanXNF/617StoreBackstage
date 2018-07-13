@@ -4,23 +4,23 @@ import java.util.ArrayList;
 
 public class ParamWithImage {
 
-    private ArrayList<String> value;
+    private ArrayList<Param> value;
 
-    private ArrayList<String> image;
+    private ArrayList<Image> image;
 
-    public ArrayList<String> getValue() {
+    public ArrayList<Param> getValue() {
         return value;
     }
 
-    public void setValue(ArrayList<String> value) {
+    public void setValue(ArrayList<Param> value) {
         this.value = value;
     }
 
-    public ArrayList<String> getImage() {
+    public ArrayList<Image> getImage() {
         return image;
     }
 
-    public void setImage(ArrayList<String> image) {
+    public void setImage(ArrayList<Image> image) {
         this.image = image;
     }
 }
