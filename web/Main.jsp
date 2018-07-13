@@ -98,7 +98,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="pages/UserList.jsp" frameborder="0"></iframe>
+                    <iframe id="iframe" src="pages/GoodsEdit.jsp" frameborder="0"></iframe>
                 </div>
             </div>
         </div>

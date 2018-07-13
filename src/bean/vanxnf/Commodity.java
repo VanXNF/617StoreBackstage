@@ -1,5 +1,6 @@
 package bean.vanxnf;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Commodity {
@@ -19,6 +20,8 @@ public class Commodity {
     private int saleVolume;
 
     private Date date;
+
+    private ArrayList<String> mainImage;
 
     public int getId() {
         return id;
@@ -82,5 +85,13 @@ public class Commodity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public ArrayList<String> getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(ArrayList<String> mainImage) {
+        this.mainImage = mainImage;
     }
 }

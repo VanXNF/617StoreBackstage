@@ -23,7 +23,7 @@
 <!-- 工具集 -->
 <div class="layui-btn-group toolTable">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
-    <button class="layui-btn" id="btn-refresh">更新</button>
+    <button class="layui-btn" id="btn-refresh">刷新</button>
 </div>
 
 <!-- 表格 -->
@@ -78,7 +78,7 @@
         table.on('tool(tables)', function(obj) {
             var data = obj.data;
             if(obj.event === 'edit') {
-                BackstageTab.add($(this), "编辑"+ data[''+'id'+''] +"号商品信息", '/api/userEdit?id='+ data[''+'id'+'']);
+                BackstageTab.add($(this), "编辑"+ data[''+'id'+''] +"号商品信息", '/api/goodsEdit?id='+ data[''+'id'+'']);
             }
         });
 

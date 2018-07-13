@@ -24,7 +24,7 @@
 <div class="layui-btn-group toolTable">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
-    <button class="layui-btn" id="btn-refresh">更新</button>
+    <button class="layui-btn" id="btn-refresh">刷新</button>
 </div>
 
 <!-- 表格 -->
