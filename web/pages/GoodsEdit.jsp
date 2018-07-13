@@ -119,9 +119,58 @@
         </div>
         <% } %>
     </div>
+    <% if (parameter.getImageFlag() != 0) {%>
     <div class="layui-form-item">
-
+        <% for (int i = 0; i < parameter.getImageFlag(); i++) {%>
+            <% for (int j = 0; j < parameter.getImageParams().getImage().size(); j++) {%>
+            <div class="layui-inline">
+                <label class="layui-form-label"><%=parameter.getAttrs().get(i)%></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="imageValue<%=i%>" name="imageValue<%=i%>" value="<%=parameter.getImageParams().getValue().get(j)%>" lay-verify="required"  autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" id="imageParam<%=i%>" name="imageParam<%=i%>" value="<%=parameter.getImageParams().getImage().get(j)%>" lay-verify="required"  autocomplete="off" class="layui-input">
+                </div>
+                <button type="button" class="layui-btn layui-btn-small" id="chooseImageParam<%=i%>">
+                    <i class="layui-icon">&#xe67c;</i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="deleteImageParam<%=i%>">
+                    <i class="layui-icon">&#x1006;</i>
+                </button>
+            </div>
+            <% } %>
+        <% } %>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" id="addImageParam">
+                    <i class="layui-icon">&#43;</i>新增商品属性
+                </button>
+            </div>
+        </div>
     </div>
+    <% } %>
+    <% for (int i = 0; i < parameter.getId().size() - parameter.getImageFlag(); i++) {%>
+        <div class="layui-form-item">
+            <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
+            <div class="layui-inline">
+                <label class="layui-form-label"><%=parameter.getParams().get(i).getKey()%></label>
+                <div class="layui-input-inline">
+                    <input type="text" name='<%=parameter.getParams().get(i).getKey()%><%=j%>' value="<%=parameter.getParams().get(i).getValue().get(j)%>" autocomplete="off" class="layui-input">
+                </div>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="deleteParam<%=j%>">
+                    <i class="layui-icon">&#x1006;</i>
+                </button>
+            </div>
+            <% } %>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn" id="addParam">
+                        <i class="layui-icon">&#43;</i>新增商品属性
+                    </button>
+                </div>
+            </div>
+        </div>
+    <% } %>
 </form>
 <div class="layui-form-item">
     <div class="layui-inline">

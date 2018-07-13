@@ -73,7 +73,7 @@ public class HandleGoodsEdit extends HttpServlet {
                 ArrayList<String> value = new ArrayList<>();
                 ArrayList<String> image = new ArrayList<>();
 
-                while (rs.next()) {
+                while (rsImageParam.next()) {
                     int id = rsImageParam.getInt("attribute_id");
                     if (!ids.contains(id)) {
                         ids.add(id);
@@ -90,7 +90,6 @@ public class HandleGoodsEdit extends HttpServlet {
                     parameter.setImageFlag(ids.size());
                     imageParam.setImage(image);
                     imageParam.setValue(value);
-                    parameter.setImageParams(imageParam);
                 } else {
                     ids.clear();
                     attrs.clear();
@@ -126,6 +125,8 @@ public class HandleGoodsEdit extends HttpServlet {
                         }
                     }
                 }
+                parameter.setImageParams(imageParam);
+                parameter.setParams(params);
                 parameter.setId(ids);
                 parameter.setAttrs(attrs);
                 break;
@@ -133,11 +134,11 @@ public class HandleGoodsEdit extends HttpServlet {
 
             session.setAttribute("Commodity" + commodityId, commodity);
             session.setAttribute("Parameter" + commodityId, parameter);
-            resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityId +"&status=OK");
+            resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityId);
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityId +"&status=ERROR");
+            resp.sendRedirect("../pages/GoodsEdit.jsp?id="+ commodityId);
         }
     }
 }
