@@ -211,8 +211,8 @@
                     '<label class="layui-form-label">'+ attr +'</label>\n' +
                     '<input class="layui-input" type="hidden" value="'+ attrId +'#'+ imageNum + '">'+
                     '<div class="layui-input-inline"><input type="text" name="'+ attrId +'value'+ imageNum + '" placeholder="请输入属性值" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
-                    '<div class="layui-input-inline"><input type="text" name="'+ attrId +'image'+ imageNum + '" placeholder="请输入图片链接" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
-                    // '<button type="button" class="layui-btn layui-btn-small" id="'+ imageNum +'" style="margin-top: 5px"><i class="layui-icon">&#xe67c;</i></button>\n' +
+                    '<div class="layui-input-inline" ><input type="text" id="file'+ imageNum +'" name="'+ attrId +'image'+ imageNum + '" placeholder="请输入图片链接" lay-verify="required"  autocomplete="off" class="layui-input image"></div>\n' +
+                    '<label for="'+ imageNum +'" class="layui-btn layui-btn-small" style="margin-top: 5px"><input type="file" class="file" style="display: none" id="'+ imageNum +'"><i class="layui-icon">&#xe67c;</i></label>\n' +
                     '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n' +
                     '</div>';
 
@@ -226,25 +226,15 @@
             $(this).parent().remove();
         });
 
-        // $('#imageItem').on('click', '.layui-btn.layui-btn-small', function() {
-        //     var id = $(this).attr('id');
-        //     alert(id)
-        //     var linkId = '#link'+ id;
-        //     alert(linkId)
-        //     $(linkId).val(123);
-        //     // $(this).parent().children('.layui-input-inline.imageLink').find('.layui-input');
-        //     upload.render({
-        //         elem: '#'+id
-        //         ,auto: false //选择文件后不自动上传
-        //         ,choose: function(obj) {
-        //             obj.preview(function (index, file, result) {
-        //                 // alert(file.name);
-        //                 $(linkId).val(file.name);
-        //             });
-        //         }
-        //     });
-        //
-        // });
+        $('#imageItem').on('click', '.layui-btn.layui-btn-small', function() {
+            var id = $(this).children('.file').attr('id');
+            var linkId = '#file'+ id;
+            $('#'+id).on('change', function (e) {
+                $(linkId).val('/images/commodity/'+$('#commodityID').val()+'/' + e.currentTarget.files[0].name);
+            })
+
+
+        });
 
         $('#chooseAttr').on('click', function () {
             var attrId = $('#attrSelect').val();
@@ -268,24 +258,30 @@
 
         $('#release').on('click', function () {
 
-            $('#imageItem').children(".layui-inline").children(".layui-input").each(function () {
-                var item = $(this).val() + ';';
-                var str = $('#imageParam').val();
-                str += item;
-                $('#imageParam').val(str);
-            });
-            // console.log($('#imageParam').val());
+            var check = $('#commodityID').val();
 
-            // 无图属性提交名称域
-            $('#noneImageItem').children(".layui-inline").children(".layui-input").each(function () {
-                var item = $(this).val() + ';';
-                var str = $('#noneImageParam').val();
-                str += item;
-                $('#noneImageParam').val(str);
-            });
-            // console.log($('#noneImageParam').val());
-            $("#dataForm").submit();
+            if (check === "" || check == null) {
+                $(":text").val("");
+                layer.msg('请先分配ID');
+                return false;
+            } else {
+                $('#imageItem').children(".layui-inline").children(".layui-input").each(function () {
+                    var item = $(this).val() + ';';
+                    var str = $('#imageParam').val();
+                    str += item;
+                    $('#imageParam').val(str);
+                });
 
+                // 无图属性提交名称域
+                $('#noneImageItem').children(".layui-inline").children(".layui-input").each(function () {
+                    var item = $(this).val() + ';';
+                    var str = $('#noneImageParam').val();
+                    str += item;
+                    $('#noneImageParam').val(str);
+                });
+
+                $("#dataForm").submit();
+            }
         });
 
     });
