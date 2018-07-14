@@ -71,7 +71,6 @@ public class HandleGoodsAdd extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html; charset=utf-8");
         req.setCharacterEncoding("utf-8");
-
         String commodityID = req.getParameter("commodityID");
         if (commodityID == null) {
             resp.sendRedirect("../pages/AddGoods.jsp?status=ERROR");
@@ -81,6 +80,8 @@ public class HandleGoodsAdd extends HttpServlet {
         String dPrice = req.getParameter("DPrice");
         String quickView = req.getParameter("quickView");
         String overView = req.getParameter("overview");
+        String imageParam = req.getParameter("imageParam");
+        String noneImageParam = req.getParameter("noneImageParam");
 
         ArrayList<String> mainPic = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -111,6 +112,9 @@ public class HandleGoodsAdd extends HttpServlet {
                         resp.sendRedirect("../pages/AddGoods.jsp?status=ERROR");
                     }
                 }
+                if (!handleImageParam(imageParam, commodityID, req, con) || !handleNoneImageParam(noneImageParam, commodityID, req, con)) {
+                    resp.sendRedirect("../pages/AddGoods.jsp?status=ERROR");
+                }
                 resp.sendRedirect("../pages/AddGoods.jsp?status=OK");
             } else {
                 resp.sendRedirect("../pages/AddGoods.jsp?status=ERROR");
@@ -118,5 +122,83 @@ public class HandleGoodsAdd extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean handleImageParam(String imageParam, String commodityID, HttpServletRequest req, Connection con) {
+        String[] imageParams;
+        PreparedStatement ps;
+        if (imageParam != null) {
+            imageParams = imageParam.split(";");
+            for (int i = 0; i < imageParams.length; i++) {
+                String[] action = imageParams[i].split("#");
+                String value = req.getParameter(action[0]+"value"+action[1]);
+                String link = req.getParameter(action[0]+"image"+action[1]);
+                try {
+                    ps = con.prepareStatement("INSERT INTO parameter(commodity_id,attribute_id,`value`) VALUES(?,?,?);");
+                    ps.setString(1, commodityID);
+                    ps.setString(2, action[0]);
+                    ps.setString(3, value);
+                    int m = ps.executeUpdate();
+                    if (m == 0) {
+                        return false;
+                    } else {
+                        ps = con.prepareStatement("SELECT id FROM parameter WHERE commodity_id=? AND attribute_id=? AND `value`=?;");
+                        ps.setString(1, commodityID);
+                        ps.setString(2, action[0]);
+                        ps.setString(3, value);
+                        ResultSet rs = ps.executeQuery();
+                        String parameterId = null;
+                        while (rs.next()) {
+                            parameterId = rs.getString("id");
+                        }
+                        if (parameterId != null) {
+                            ps = con.prepareStatement("INSERT INTO image(image,commodity_id,parameter_id) VALUES(?,?,?);");
+                            ps.setString(1, link);
+                            ps.setString(2, commodityID);
+                            ps.setString(3, parameterId);
+                            int n = ps.executeUpdate();
+                            if (n == 0) {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        return true;
+    }
+
+    private boolean handleNoneImageParam(String noneImageParam, String commodityID, HttpServletRequest req, Connection con) {
+        PreparedStatement ps;
+        String[] noneImageParams;
+        if (noneImageParam != null) {
+            noneImageParams = noneImageParam.split(";");
+            for (int i = 0; i < noneImageParams.length; i++) {
+                String[] action = noneImageParams[i].split("#");
+                String value = req.getParameter(noneImageParams[i]);
+                try {
+                    ps = con.prepareStatement("INSERT INTO parameter(commodity_id,attribute_id,`value`) VALUES(?,?,?);");
+                    ps.setString(1, commodityID);
+                    ps.setString(2, action[0]);
+                    ps.setString(3, value);
+                    int m = ps.executeUpdate();
+                    if (m == 0) {
+                        return false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
     }
 }

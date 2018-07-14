@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.vanxnf.Attribute" %><%--
   Created by IntelliJ IDEA.
   User: VanXN
   Date: 2018/7/13
@@ -24,6 +25,14 @@
         if (status.equals("OK")) status = "发布成功";
         else if (status.equals("ERROR")) status = "发布失败";
         else if (status.equals("ID_ERROR")) status = "请求分配商品ID失败";
+    }
+    ArrayList<Attribute> attributes = null;
+    Object object = session.getAttribute("Attribute");
+    if (object instanceof ArrayList) {
+        attributes = (ArrayList<Attribute>) object;
+    }
+    if (attributes == null) {
+        response.sendRedirect("../api/goodsAttribute?page=AddGoods");
     }
 %>
 <body class="body">
@@ -96,20 +105,64 @@
         </div>
         <% } %>
     </div>
+
+    <% if (attributes != null) {%>
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <input type="submit" class="layui-btn layui-btn-normal" value="发布商品">
+        <label class="layui-form-label">带图属性</label>
+        <div class="layui-input-inline">
+            <select id="attrImageSelect">
+                <option value="" selected></option>
+                <% for (int i = 0; i < attributes.size(); i++) {%>
+                    <% if (attributes.get(i).getImageFlag() == 1) {%>
+                    <option value="<%=attributes.get(i).getId()%>"><%=attributes.get(i).getAttribute()%></option>
+                    <% } %>
+                <% } %>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal" id="chooseImageAttr">添加</button>
         </div>
     </div>
+    <div class="layui-form-item" id="imageItem">
+        <input type="hidden" id="imageParam" name="imageParam">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">无图属性</label>
+        <div class="layui-input-inline">
+            <select id="attrSelect">
+                <option value="" selected></option>
+                <% for (int i = 0; i < attributes.size(); i++) {%>
+                    <% if (attributes.get(i).getImageFlag() == 0) {%>
+                    <option value="<%=attributes.get(i).getId()%>"><%=attributes.get(i).getAttribute()%></option>
+                    <% } %>
+                <% } %>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal" id="chooseAttr">添加</button>
+        </div>
+    </div>
+    <div class="layui-form-item" id="noneImageItem">
+        <input type="hidden" id="noneImageParam" name="noneImageParam">
+    </div>
+    <% } %>
 </form>
+<div style="margin-bottom: 5%">
+    <div class="layui-inline">
+        <button id="release" type="button" class="layui-btn layui-btn-normal">发布商品</button>
+    </div>
+</div>
 
 <script src="../frame/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    layui.use(['upload', 'layer'], function() {
+    layui.use(['upload', 'layer','form'], function() {
         var upload = layui.upload;
         var $ = layui.jquery;
         var layer = layui.layer;
+        var form = layer.form;
+        var imageNum = 0;
+        var noneImageNum = 0;
 
         $('#requestID').on('click', function () {
             $.ajax({
@@ -148,6 +201,92 @@
             }
         });
         <% } %>
+
+        $('#chooseImageAttr').on('click', function () {
+            var attrId = $('#attrImageSelect').val();//属性id
+            var attr = $('#attrImageSelect').find('option:selected').text();//属性名
+            // 非空时有效
+            if (attr !== "") {
+                var ele = '<div class="layui-inline">\n' +
+                    '<label class="layui-form-label">'+ attr +'</label>\n' +
+                    '<input class="layui-input" type="hidden" value="'+ attrId +'#'+ imageNum + '">'+
+                    '<div class="layui-input-inline"><input type="text" name="'+ attrId +'value'+ imageNum + '" placeholder="请输入属性值" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
+                    '<div class="layui-input-inline"><input type="text" name="'+ attrId +'image'+ imageNum + '" placeholder="请输入图片链接" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
+                    // '<button type="button" class="layui-btn layui-btn-small" id="'+ imageNum +'" style="margin-top: 5px"><i class="layui-icon">&#xe67c;</i></button>\n' +
+                    '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n' +
+                    '</div>';
+
+                $("#imageItem").append(ele);
+                imageNum = imageNum + 1;
+            }
+
+        });
+
+        $('#imageItem').on('click', '.layui-btn.layui-btn-danger.layui-btn-small', function(){
+            $(this).parent().remove();
+        });
+
+        // $('#imageItem').on('click', '.layui-btn.layui-btn-small', function() {
+        //     var id = $(this).attr('id');
+        //     alert(id)
+        //     var linkId = '#link'+ id;
+        //     alert(linkId)
+        //     $(linkId).val(123);
+        //     // $(this).parent().children('.layui-input-inline.imageLink').find('.layui-input');
+        //     upload.render({
+        //         elem: '#'+id
+        //         ,auto: false //选择文件后不自动上传
+        //         ,choose: function(obj) {
+        //             obj.preview(function (index, file, result) {
+        //                 // alert(file.name);
+        //                 $(linkId).val(file.name);
+        //             });
+        //         }
+        //     });
+        //
+        // });
+
+        $('#chooseAttr').on('click', function () {
+            var attrId = $('#attrSelect').val();
+            var attr = $('#attrSelect').find('option:selected').text();
+            // 非空时有效
+            if (attr !== "") {
+                var ele = '<div class="layui-inline">\n' +
+                    '<label class="layui-form-label">'+ attr +'</label>\n' +
+                    '<input class="layui-input" type="hidden" value='+ attrId +'#'+ noneImageNum +'>'+
+                    '<div class="layui-input-inline"><input type="text" name='+ attrId +'#'+ noneImageNum +' autocomplete="off" placeholder="请输入" class="layui-input"></div>\n' +
+                    '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n'+
+                    '</div>';
+                $("#noneImageItem").append(ele);
+                noneImageNum = noneImageNum + 1;
+            }
+        });
+
+        $('#noneImageItem').on('click', '.layui-btn.layui-btn-danger.layui-btn-small', function(){
+            $(this).parent().remove();
+        });
+
+        $('#release').on('click', function () {
+
+            $('#imageItem').children(".layui-inline").children(".layui-input").each(function () {
+                var item = $(this).val() + ';';
+                var str = $('#imageParam').val();
+                str += item;
+                $('#imageParam').val(str);
+            });
+            // console.log($('#imageParam').val());
+
+            // 无图属性提交名称域
+            $('#noneImageItem').children(".layui-inline").children(".layui-input").each(function () {
+                var item = $(this).val() + ';';
+                var str = $('#noneImageParam').val();
+                str += item;
+                $('#noneImageParam').val(str);
+            });
+            // console.log($('#noneImageParam').val());
+            $("#dataForm").submit();
+
+        });
 
     });
 </script>

@@ -11,9 +11,13 @@
     <link rel="stylesheet" href="frame/layui/css/layui.css">
     <link rel="stylesheet" href="frame/static/css/style.css">
     <link rel="icon" href="images/favicon.png">
+    <%  Object object = session.getAttribute("admin");
+        if (object == null) {
+            response.sendRedirect("Login.jsp");
+        }
+    %>
 </head>
 <body>
-
 <!-- layout admin -->
 <div class="layui-layout layui-layout-admin">
     <!-- header -->
@@ -127,7 +131,6 @@ layui.use(['layer','Backstage_nav'], function () {
 
     // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
     BackstageNav.main('./json/nav_main.json','side-main',true);
-
 
 });
 </script>

@@ -23,6 +23,7 @@ public class HandleGoodsEdit extends HttpServlet {
         Connection con;
         PreparedStatement ps;
         ResultSet rs;
+        ResultSet rsAttr;
         ResultSet rsMainImage;
         ResultSet rsImageParam;
         ResultSet rsParam;
@@ -30,6 +31,19 @@ public class HandleGoodsEdit extends HttpServlet {
         try {
 //            Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url,"root","abcphotovalley");
+            ps = con.prepareStatement("SELECT * FROM attribute");
+            rsAttr = ps.executeQuery();
+            ArrayList<Attribute> attributes = new ArrayList<>();
+            while (rsAttr.next()) {
+                Attribute attribute = new Attribute();
+                attribute.setAttribute(rsAttr.getString("attribute"));
+                attribute.setId(rsAttr.getInt("id"));
+                attribute.setImageFlag(rsAttr.getInt("image_flag"));
+                attributes.add(attribute);
+            }
+            if (attributes.size() > 0) {
+                session.setAttribute("Attribute", attributes);
+            }
             ps = con.prepareStatement("SELECT * FROM commodity WHERE id = ?;");
             ps.setString(1, commodityId);
             rs = ps.executeQuery();
