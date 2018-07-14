@@ -28,17 +28,6 @@
             </button>
         </div>
 
-        <!-- 顶部左侧添加选项卡监听 -->
-        <ul class="layui-nav" lay-filter="side-top-left">
-            <li class="layui-nav-item">
-                <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="pages/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                    <dd><a href="javascript:;" href-url="pages/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
-                </dl>
-            </li>
-        </ul>
-
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
             <%--主题切换--%>
@@ -136,12 +125,8 @@ layui.use(['layer','Backstage_nav'], function () {
         ,BackstageNav = layui.Backstage_nav
         ,$ = layui.jquery;
 
-    // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    // BackstageNav.top_left('./json/nav_top_left.json','side-top-left',false);
     // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
     BackstageNav.main('./json/nav_main.json','side-main',true);
-
-    // you code ...
 
 
 });

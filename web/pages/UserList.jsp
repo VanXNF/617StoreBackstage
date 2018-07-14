@@ -77,7 +77,7 @@
         table.on('tool(tables)', function(obj) {
             var data = obj.data;
             if(obj.event === 'hide') {
-                layer.confirm('暂时隐藏此数据？', function(index){
+                layer.confirm('暂时隐藏此数据？', function(index) {
                     obj.del();
                     layer.close(index);
                 });

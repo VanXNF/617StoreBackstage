@@ -1,5 +1,3 @@
-<%@ page import="bean.vanxnf.Commodity" %>
-<%@ page import="bean.vanxnf.Parameter" %>
 <%--
   Created by IntelliJ IDEA.
   User: VanXN
@@ -30,7 +28,6 @@
 %>
 <body class="body">
 
-
 <form id="dataForm" class="layui-form layui-form-pane" action="../api/goodsAdd" method="post">
     <% if (status != null) {%>
     <div class="layui-form-item">
@@ -42,8 +39,9 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品 ID</label>
         <div class="layui-input-inline">
-            <input type="text" id="commodityID" name="commodityID" value="" autocomplete="off" class="layui-input layui-disabled">
+            <input type="text" id="commodityID" autocomplete="off" class="layui-input layui-disabled" disabled>
         </div>
+        <input type="hidden" name="commodityID" id="cID">
         <button type="button" class="layui-btn" id="requestID">
             <i class="layui-icon">&#43;</i>点击分配ID
         </button>
@@ -120,6 +118,7 @@
                 dataType:'text',
                 success: function(result) {
                     $('#commodityID').val(result);
+                    $('#cID').val(result);
                     $('#requestID').attr("disabled", 'disabled');
                     $('#requestID').addClass("layui-disabled");
                 }
@@ -149,14 +148,6 @@
             }
         });
         <% } %>
-
-        $("#deleteGoods").on("click", function () {
-            layer.confirm('是否删除该商品数据？', function(index) {
-                $("#deleteForm").submit();
-                layer.close(index);
-                return false;
-            });
-        });
 
     });
 </script>

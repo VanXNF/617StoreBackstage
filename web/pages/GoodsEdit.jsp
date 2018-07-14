@@ -56,7 +56,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品 ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="commodityID" value="<%=commodity.getId()%>" autocomplete="off" class="layui-input layui-disabled">
+            <input type="text" value="<%=commodity.getId()%>" autocomplete="off" class="layui-input layui-disabled" disabled>
+            <input type="hidden" name="commodityID" value="<%=commodity.getId()%>">
         </div>
     </div>
     <div class="layui-form-item">
