@@ -1,5 +1,7 @@
 <%@ page import="bean.vanxnf.Commodity" %>
 <%@ page import="bean.vanxnf.Parameter" %>
+<%@ page import="bean.vanxnf.Attribute" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: VanXN
@@ -41,6 +43,11 @@
         else if (status.equals("4")) status = "无图商品属性更改失败";
         else if (status.equals("5")) status = "删除商品失败";
     }
+    ArrayList<Attribute> attributes = null;
+    Object object = session.getAttribute("Attribute");
+    if (object instanceof ArrayList) {
+        attributes = (ArrayList<Attribute>) object;
+    }
 %>
 <body class="body">
 
@@ -57,7 +64,7 @@
         <label class="layui-form-label">商品 ID</label>
         <div class="layui-input-inline">
             <input type="text" value="<%=commodity.getId()%>" autocomplete="off" class="layui-input layui-disabled" disabled>
-            <input type="hidden" name="commodityID" value="<%=commodity.getId()%>">
+            <input type="hidden" id="commodityID" name="commodityID" value="<%=commodity.getId()%>">
         </div>
     </div>
     <div class="layui-form-item">
@@ -124,86 +131,93 @@
         </div>
         <% } %>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <input form="dataForm" type="submit" class="layui-btn layui-btn-normal" value="提交基本属性修改">
-        </div>
-    </div>
-</form>
-
-<% if (parameter.getImageFlag() != 0) {%>
-<form class="layui-form layui-form-pane" action="" method="post">
-    <div class="layui-form-item">
+    <% if (parameter.getImageFlag() != 0) {%>
+    <div class="layui-form-item" id="alreadyImageParam">
         <% for (int i = 0; i < parameter.getImageFlag(); i++) {%>
             <% for (int j = 0; j < parameter.getImageParams().getImage().size(); j++) {%>
             <div class="layui-inline" id="<%=i%>imageLine<%=j%>">
-                <label class="layui-form-label"><%=parameter.getAttrs().get(i)%></label>
+                <label class="layui-form-label"><%=parameter.getAttrs().get(i).getAttribute()%></label>
                 <div class="layui-input-inline">
                     <input type="text" id="<%=i%>imageValue<%=j%>" name="<%=i%>imageValue<%=j%>" value="<%=parameter.getImageParams().getValue().get(j).getContent()%>" lay-verify="required"  autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" id="<%=i%>imageParam<%=j%>" name="<%=i%>imageParam<%=j%>" value="<%=parameter.getImageParams().getImage().get(j).getUrl()%>" lay-verify="required"  autocomplete="off" class="layui-input">
                 </div>
-                <button type="button" class="layui-btn layui-btn-small" id="<%=i%>chooseImageParam<%=j%>">
+                <button type="button" class="layui-btn layui-btn-small" id="<%=i%>chooseImageParam<%=j%>" style="margin-top: 5px">
                     <i class="layui-icon">&#xe67c;</i>
                 </button>
-                <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="<%=i%>deleteImageParam<%=j%>">
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="<%=i%>deleteImageParam<%=j%>" style="margin-top: 5px">
                     <i class="layui-icon">&#x1006;</i>
                 </button>
             </div>
             <% } %>
         <% } %>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <button type="button" class="layui-btn" id="addImageParam">
-                    <i class="layui-icon">&#43;</i>新增带图商品属性
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <input type="submit" class="layui-btn layui-btn-normal" value="提交带图商品属性修改">
-        </div>
-    </div>
-</form>
-<% } %>
-<% if (parameter.getId().size() - parameter.getImageFlag() != 0) {%>
-<form id="noneImageForm" class="layui-form layui-form-pane" action="" method="post">
-    <% for (int i = 0; i < parameter.getId().size() - parameter.getImageFlag(); i++) {%>
-    <div class="layui-form-item">
-        <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
-        <div class="layui-inline" id="<%=i%>paramLine<%=j%>">
-            <label class="layui-form-label"><%=parameter.getParams().get(i).getKey()%></label>
-            <div class="layui-input-inline">
-                <input type="text" name='<%=i%>paramValue<%=j%>' value="<%=parameter.getParams().get(i).getValue().get(j)%>" autocomplete="off" class="layui-input">
-            </div>
-            <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="<%=i%>deleteParam<%=j%>">
-                <i class="layui-icon">&#x1006;</i>
-            </button>
-        </div>
-        <% } %>
-        <div class="layui-inline" id="addNewParam">
-            <div class="layui-input-inline">
-                <button type="button" class="layui-btn" id="addParam">
-                    <i class="layui-icon">&#43;</i>新增商品属性
-                </button>
-            </div>
-        </div>
     </div>
     <% } %>
+    <% if (parameter.getAttrs().size() - parameter.getImageFlag() != 0) {%>
+    <div class="layui-form-item" id="alreadyParam">
+        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageFlag(); i++) {%>
+            <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
+            <div class="layui-inline" id="<%=i%>paramLine<%=j%>">
+                <label class="layui-form-label"><%=parameter.getParams().get(i).getKey()%></label>
+                <div class="layui-input-inline">
+                    <input type="text" name='<%=i%>paramValue<%=j%>' value="<%=parameter.getParams().get(i).getValue().get(j)%>" autocomplete="off" class="layui-input">
+                </div>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="<%=i%>deleteParam<%=j%>" style="margin-top: 5px">
+                    <i class="layui-icon">&#x1006;</i>
+                </button>
+            </div>
+            <% } %>
+        <% } %>
+    </div>
+    <% } %>
+    <% if (attributes != null) {%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">带图属性</label>
+        <div class="layui-input-inline">
+            <select id="attrImageSelect">
+                <option value="" selected></option>
+                <% for (int i = 0; i < attributes.size(); i++) {%>
+                <% if (attributes.get(i).getImageFlag() == 1) {%>
+                <option value="<%=attributes.get(i).getId()%>"><%=attributes.get(i).getAttribute()%></option>
+                <% } %>
+                <% } %>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal" id="chooseImageAttr">添加</button>
+        </div>
+    </div>
+    <div class="layui-form-item" id="imageItem">
+        <input type="hidden" id="imageParam" name="imageParam">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">无图属性</label>
+        <div class="layui-input-inline">
+            <select id="attrSelect">
+                <option value="" selected></option>
+                <% for (int i = 0; i < attributes.size(); i++) {%>
+                <% if (attributes.get(i).getImageFlag() == 0) {%>
+                <option value="<%=attributes.get(i).getId()%>"><%=attributes.get(i).getAttribute()%></option>
+                <% } %>
+                <% } %>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal" id="chooseAttr">添加</button>
+        </div>
+    </div>
+    <div class="layui-form-item" id="noneImageItem">
+        <input type="hidden" id="noneImageParam" name="noneImageParam">
+    </div>
+    <% } %>
+    <div class="layui-form-item" style="margin-bottom: 5%">
+        <div class="layui-inline">
+            <button type="button" id="release" class="layui-btn layui-btn-normal">提交修改</button>
+            <button type="button" id="deleteGoods" class="layui-btn layui-btn-danger">删除商品</button>
+        </div>
+    </div>
 </form>
-<div class="layui-form-item">
-    <div class="layui-inline">
-        <input form="noneImageForm" type="submit" id="" class="layui-btn layui-btn-normal" value="提交无图商品属性修改">
-    </div>
-</div>
-<% } %>
-<div class="layui-inline">
-    <div class="layui-input-inline">
-        <button id="deleteGoods" class="layui-btn layui-btn-danger">删除商品</button>
-    </div>
-</div>
 <form id="deleteForm" action="/api/goodsDelete" method="post">
     <input type="hidden" name="id" value="<%=commodity.getId()%>">
 </form>
@@ -212,10 +226,13 @@
 <script src="../frame/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    layui.use(['upload', 'layer'], function() {
+    layui.use(['upload', 'layer', 'form'], function() {
         var upload = layui.upload;
         var $ = layui.jquery;
+        var form = layui.form;
         var layer = layui.layer;
+        var imageNum = 0;
+        var noneImageNum = 0;
 
         // 监听overview
         upload.render({
@@ -263,7 +280,7 @@
             <% } %>
         <% } %>
         // 监听无图属性
-        <% for (int i = 0; i < parameter.getId().size() - parameter.getImageFlag(); i++) {%>
+        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageFlag(); i++) {%>
             <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
                 $("#<%=i%>deleteParam<%=j%>").on("click", function () {
                     layer.confirm('是否删除该属性数据？', function(index) {
@@ -274,14 +291,78 @@
                 });
             <% } %>
         <% } %>
-        $('#addParam').on('click', function () {
-           var ele = '<div class="layui-inline">' +
-               '<label class="layui-form-label">骚吉吉</label>' +
-               '<div class="layui-input-inline"><input type="text"  value="" autocomplete="off" class="layui-input"></div>' +
-               '<button type="button" class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#x1006;</i></button>' +
-               '</div>';
+        $('#chooseImageAttr').on('click', function () {
+            var attrId = $('#attrImageSelect').val();//属性id
+            var attr = $('#attrImageSelect').find('option:selected').text();//属性名
+            // 非空时有效
+            if (attr !== "") {
+                var ele = '<div class="layui-inline">\n' +
+                    '<label class="layui-form-label">'+ attr +'</label>\n' +
+                    '<input class="layui-input" type="hidden" value="'+ attrId +'#'+ imageNum + '">'+
+                    '<div class="layui-input-inline"><input type="text" name="'+ attrId +'value'+ imageNum + '" placeholder="请输入属性值" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
+                    '<div class="layui-input-inline" ><input type="text" id="file'+ imageNum +'" name="'+ attrId +'image'+ imageNum + '" placeholder="请输入图片链接" lay-verify="required"  autocomplete="off" class="layui-input image"></div>\n' +
+                    '<label for="'+ imageNum +'" class="layui-btn layui-btn-small" style="margin-top: 5px"><input type="file" class="file" style="display: none" id="'+ imageNum +'"><i class="layui-icon">&#xe67c;</i></label>\n' +
+                    '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n' +
+                    '</div>';
 
-           $('#addNewParam').before(ele);
+                $("#imageItem").append(ele);
+                imageNum = imageNum + 1;
+            }
+
+        });
+
+        $('#imageItem').on('click', '.layui-btn.layui-btn-danger.layui-btn-small', function(){
+            $(this).parent().remove();
+        });
+
+        $('#imageItem').on('click', '.layui-btn.layui-btn-small', function() {
+            var id = $(this).children('.file').attr('id');
+            var linkId = '#file'+ id;
+            $('#'+id).on('change', function (e) {
+                $(linkId).val('/images/commodity/'+$('#commodityID').val()+'/' + e.currentTarget.files[0].name);
+            })
+
+
+        });
+
+        $('#chooseAttr').on('click', function () {
+            var attrId = $('#attrSelect').val();
+            var attr = $('#attrSelect').find('option:selected').text();
+            // 非空时有效
+            if (attr !== "") {
+                var ele = '<div class="layui-inline">\n' +
+                    '<label class="layui-form-label">'+ attr +'</label>\n' +
+                    '<input class="layui-input" type="hidden" value='+ attrId +'#'+ noneImageNum +'>'+
+                    '<div class="layui-input-inline"><input type="text" name='+ attrId +'#'+ noneImageNum +' autocomplete="off" placeholder="请输入" class="layui-input"></div>\n' +
+                    '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n'+
+                    '</div>';
+                $("#noneImageItem").append(ele);
+                noneImageNum = noneImageNum + 1;
+            }
+        });
+
+        $('#noneImageItem').on('click', '.layui-btn.layui-btn-danger.layui-btn-small', function(){
+            $(this).parent().remove();
+        });
+
+        $('#release').on('click', function () {
+
+            $('#imageItem').children(".layui-inline").children(".layui-input").each(function () {
+                var item = $(this).val() + ';';
+                var str = $('#imageParam').val();
+                str += item;
+                $('#imageParam').val(str);
+            });
+
+            // 无图属性提交名称域
+            $('#noneImageItem').children(".layui-inline").children(".layui-input").each(function () {
+                var item = $(this).val() + ';';
+                var str = $('#noneImageParam').val();
+                str += item;
+                $('#noneImageParam').val(str);
+            });
+
+            $("#dataForm").submit();
         });
 
         $("#deleteGoods").on("click", function () {

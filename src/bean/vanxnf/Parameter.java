@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class Parameter {
 
-    private ArrayList<Integer> id;
-
-    private ArrayList<String> attrs;
+    private ArrayList<Attribute> attrs;
 
     private ArrayList<ParamWithoutImage> params;
 
@@ -16,19 +14,11 @@ public class Parameter {
     /**带图片的属性*/
     private ParamWithImage imageParams;
 
-    public ArrayList<Integer> getId() {
-        return id;
-    }
-
-    public void setId(ArrayList<Integer> id) {
-        this.id = id;
-    }
-
-    public ArrayList<String> getAttrs() {
+    public ArrayList<Attribute> getAttrs() {
         return attrs;
     }
 
-    public void setAttrs(ArrayList<String> attrs) {
+    public void setAttrs(ArrayList<Attribute> attrs) {
         this.attrs = attrs;
     }
 
