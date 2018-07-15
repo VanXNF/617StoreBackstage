@@ -2,6 +2,7 @@ package bean.vanxnf;
 
 import java.util.ArrayList;
 
+/**单个商品 - 表commodity + 视图mainpicture*/
 public class Commodity {
 
     private int id;

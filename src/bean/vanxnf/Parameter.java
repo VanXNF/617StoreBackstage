@@ -2,18 +2,14 @@ package bean.vanxnf;
 
 import java.util.ArrayList;
 
+/**单个商品属性与对应值 复合型*/
 public class Parameter {
-
+    /**属性(attribute)列表 id、带图属性标记与对应值*/
     private ArrayList<Attribute> attrs;
-
+    /**无图的属性列表*/
     private ArrayList<ParamWithoutImage> params;
-
-    /**带图片属性个数*/
-    private int imageFlag = 0;
-
-    /**带图片的属性*/
+    /**带图片的属性列表*/
     private ArrayList<ParamWithImage> imageParams;
-//    private ParamWithImage imageParams;
 
     public ArrayList<Attribute> getAttrs() {
         return attrs;
@@ -29,14 +25,6 @@ public class Parameter {
 
     public void setParams(ArrayList<ParamWithoutImage> params) {
         this.params = params;
-    }
-
-    public int getImageFlag() {
-        return imageFlag;
-    }
-
-    public void setImageFlag(int imageFlag) {
-        this.imageFlag = imageFlag;
     }
 
     public ArrayList<ParamWithImage> getImageParams() {

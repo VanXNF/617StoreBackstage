@@ -134,17 +134,6 @@ public class HandleGoodsEdit extends HttpServlet {
 
                     imageParams.add(imageParam);
                 }
-//                ImageFlag的值为带图属性个数
-//                if (value.size() != 0 && images.size() != 0 && ids.size() != 0 && attrs.size() != 0) {
-//
-//                    imageParam.setImage(images);
-//                    imageParam.setValue(value);
-//                } else {
-//                    ids.clear();
-//                    attrs.clear();
-//                    attributeArrayList.clear();
-//                    parameter.setImageFlag(0);
-//                }
 //                查询不带图属性
                 ps = con.prepareStatement("SELECT * FROM paramWithoutImage WHERE commodity_id = ?");
                 ps.setString(1, commodityId);
@@ -169,6 +158,7 @@ public class HandleGoodsEdit extends HttpServlet {
                         values.add(rsParam.getString("value"));
                         Ids.add(rsParam.getInt("parameter_id"));
                         param.setKey(attribute);
+
                         param.setIds(Ids);
                         param.setValue(values);
                         params.add(param);
@@ -182,7 +172,6 @@ public class HandleGoodsEdit extends HttpServlet {
                         }
                     }
                 }
-                parameter.setImageFlag(imageParams.size());
                 parameter.setImageParams(imageParams);
                 parameter.setParams(params);
                 parameter.setAttrs(attributeArrayList);
@@ -256,8 +245,8 @@ public class HandleGoodsEdit extends HttpServlet {
                     }
                 }
 //                修改带图属性
-                if (parameter.getImageFlag() != 0) {
-                    for (int m = 0; m < parameter.getImageFlag(); m++) {
+                if (parameter.getImageParams().size() != 0) {
+                    for (int m = 0; m < parameter.getImageParams().size(); m++) {
                         for (int n = 0; n < parameter.getImageParams().get(m).getImage().size(); n++) {
                             String value = req.getParameter(m+"imageValue"+n);
                             String link = req.getParameter(m+"imageParam"+n);
@@ -291,8 +280,8 @@ public class HandleGoodsEdit extends HttpServlet {
                 }
 
 //                修改无图属性
-                if (parameter.getAttrs().size() - parameter.getImageFlag() != 0) {
-                    for (int m = 0; m < parameter.getAttrs().size() - parameter.getImageFlag(); m++) {
+                if (parameter.getAttrs().size() - parameter.getImageParams().size() != 0) {
+                    for (int m = 0; m < parameter.getAttrs().size() - parameter.getImageParams().size(); m++) {
                         for (int n = 0; n < parameter.getParams().get(m).getValue().size(); n++) {
                             String paramValue = req.getParameter(m + "paramValue" + n);
                             int id = parameter.getParams().get(m).getIds().get(n);

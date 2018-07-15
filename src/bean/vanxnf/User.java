@@ -1,6 +1,6 @@
 package bean.vanxnf;
 
-/**单个用户信息*/
+/**单个用户信息 - 表user*/
 public class User {
 
     private int id;

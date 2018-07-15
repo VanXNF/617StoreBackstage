@@ -1,6 +1,6 @@
 package bean.vanxnf;
 
-/**单笔支付记录 - paymentList*/
+/**单笔支付记录 - 视图paymentList*/
 public class Payment {
 
     private int id;

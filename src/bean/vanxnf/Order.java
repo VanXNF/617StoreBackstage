@@ -1,22 +1,23 @@
 package bean.vanxnf;
 
-/**单笔订单详情 - historyOrder*/
+/**单个商品交易详情 - 视图historyOrder*/
 public class Order {
 
+    /**商品id*/
     private int commodityId;
-
+    /**商品标题*/
     private String title;
-
+    /**购买数量*/
     private int quantity;
-
+    /**本商品合计金额*/
     private double sumPrice;
-
+    /**带图片的属性选择值*/
     private String attrWithImage;
-
+    /**无图片的属性选择值*/
     private String attrWithoutImage;
-
+    /**购买本商品的用户id*/
     private int userId;
-
+    /**本次交易订单id*/
     private int paymentId;
 
     public int getCommodityId() {

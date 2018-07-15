@@ -1,9 +1,10 @@
 package bean.vanxnf;
 
+/**管理员 - 表admin*/
 public class Admin {
 
     private int id;
-
+    /**用户名*/
     private String account;
 
     public int getId() {

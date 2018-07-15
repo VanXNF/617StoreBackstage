@@ -131,7 +131,7 @@
         </div>
         <% } %>
     </div>
-    <% if (parameter.getImageFlag() != 0) {%>
+    <% if (parameter.getImageParams().size() != 0) {%>
         <% for (int i = 0; i < parameter.getImageParams().size(); i++) {%>
         <div class="layui-form-item">
             <% for (int j = 0; j < parameter.getImageParams().get(i).getImage().size(); j++) {%>
@@ -154,12 +154,12 @@
         </div>
         <% } %>
     <% } %>
-    <% if (parameter.getAttrs().size() - parameter.getImageFlag() != 0) {%>
-        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageFlag(); i++) {%>
+    <% if (parameter.getAttrs().size() - parameter.getImageParams().size() != 0) {%>
+        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageParams().size(); i++) {%>
         <div class="layui-form-item">
             <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
             <div class="layui-inline" id="<%=i%>paramLine<%=j%>">
-                <label class="layui-form-label"><%=parameter.getParams().get(i).getKey()%></label>
+                <label class="layui-form-label"><%=parameter.getAttrs().get(i + parameter.getImageParams().size()).getAttribute()%></label>
                 <div class="layui-input-inline">
                     <input type="text" name='<%=i%>paramValue<%=j%>' value="<%=parameter.getParams().get(i).getValue().get(j)%>" autocomplete="off" class="layui-input">
                 </div>
@@ -257,8 +257,8 @@
             });
         <% } %>
         // 监听带图片属性
-        <% if (parameter.getImageFlag() != 0) {%>
-            <% for (int i = 0; i < parameter.getImageFlag(); i++) {%>
+        <% if (parameter.getImageParams().size() != 0) {%>
+            <% for (int i = 0; i < parameter.getImageParams().size(); i++) {%>
                 <% for (int j = 0; j < parameter.getImageParams().get(i).getImage().size(); j++) {%>
                     upload.render({
                         elem: '#<%=i%>chooseImageParam<%=j%>'
@@ -280,7 +280,7 @@
             <% } %>
         <% } %>
         // 监听无图属性
-        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageFlag(); i++) {%>
+        <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageParams().size(); i++) {%>
             <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
                 $("#<%=i%>deleteParam<%=j%>").on("click", function () {
                     layer.confirm('是否删除该属性数据？', function(index) {
