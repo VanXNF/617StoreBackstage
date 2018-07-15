@@ -1,7 +1,7 @@
 package servlet.vanxnf;
 
 import bean.vanxnf.*;
-import com.sun.org.apache.regexp.internal.RE;
+import tools.MySQL;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,10 +24,10 @@ public class HandleGoodsEdit extends HttpServlet {
         Connection con;
         PreparedStatement ps;
         ResultSet rsAttr;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+
         try {
 //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("SELECT * FROM attribute");
             rsAttr = ps.executeQuery();
             ArrayList<Attribute> attributes = new ArrayList<>();
@@ -86,54 +86,65 @@ public class HandleGoodsEdit extends HttpServlet {
                 commodity.setMainImage(mainImages);
 
 //                首先查询带图属性
-                ps = con.prepareStatement("SELECT * FROM paramWithImage WHERE commodity_id = ?");
+                ps = con.prepareStatement("SELECT DISTINCT attribute_id, attribute FROM paramwithimage WHERE commodity_id = ?");
                 ps.setString(1, commodityId);
                 rsImageParam = ps.executeQuery();
 //                存放属性
                 ArrayList<Attribute> attributeArrayList = new ArrayList<>();
 //                存放商品属性id
                 ArrayList<Integer> ids = new ArrayList<>();
-//                存放商品属性名
-                ArrayList<String> attrs = new ArrayList<>();
 //                存放带图属性的图片链接与对应值
-                ParamWithImage imageParam = new ParamWithImage();
-                ArrayList<Param> value = new ArrayList<>();
-                ArrayList<Image> images = new ArrayList<>();
-
+                ArrayList<ParamWithImage> imageParams = new ArrayList<>();
                 while (rsImageParam.next()) {
+                    ArrayList<Param> value = new ArrayList<>();
+                    ArrayList<Image> images = new ArrayList<>();
+                    ParamWithImage imageParam = new ParamWithImage();
+                    ResultSet rsImage;
                     Attribute attr = new Attribute();
+
                     int id = rsImageParam.getInt("attribute_id");
-                    if (!ids.contains(id)) {
-                        ids.add(id);
-                        attr.setId(id);
-                        attr.setImageFlag(1);
-                    }
                     String attribute = rsImageParam.getString("attribute");
-                    if (!attrs.contains(attribute)) {
-                        attrs.add(attribute);
-                        attr.setAttribute(attribute);
-                        attributeArrayList.add(attr);
+
+                    ids.add(id);
+
+                    attr.setId(id);
+                    attr.setAttribute(attribute);
+                    attr.setImageFlag(1);
+                    attributeArrayList.add(attr);
+
+                    ps = con.prepareStatement("SELECT * FROM paramWithImage WHERE commodity_id = ? AND attribute_id = ?;");
+                    ps.setString(1, commodityId);
+                    ps.setInt(2, id);
+                    rsImage = ps.executeQuery();
+
+                    while (rsImage.next()) {
+                        Param param = new Param();
+                        param.setId(rsImage.getInt("parameter_id"));
+                        param.setContent(rsImage.getString("value"));
+                        value.add(param);
+                        Image image = new Image();
+                        image.setId(rsImage.getInt("image_id"));
+                        image.setUrl(rsImage.getString("image"));
+                        images.add(image);
                     }
-                    Param param = new Param();
-                    param.setId(rsImageParam.getInt("parameter_id"));
-                    param.setContent(rsImageParam.getString("value"));
-                    value.add(param);
-                    Image image = new Image();
-                    image.setId(rsImageParam.getInt("image_id"));
-                    image.setUrl(rsImageParam.getString("image"));
-                    images.add(image);
-                }
-//                ImageFlag的值为带图属性个数
-                if (value.size() != 0 && images.size() != 0 && ids.size() != 0 && attrs.size() != 0) {
-                    parameter.setImageFlag(ids.size());
+                    rsImage.close();
+
                     imageParam.setImage(images);
                     imageParam.setValue(value);
-                } else {
-                    ids.clear();
-                    attrs.clear();
-                    attributeArrayList.clear();
-                    parameter.setImageFlag(0);
+
+                    imageParams.add(imageParam);
                 }
+//                ImageFlag的值为带图属性个数
+//                if (value.size() != 0 && images.size() != 0 && ids.size() != 0 && attrs.size() != 0) {
+//
+//                    imageParam.setImage(images);
+//                    imageParam.setValue(value);
+//                } else {
+//                    ids.clear();
+//                    attrs.clear();
+//                    attributeArrayList.clear();
+//                    parameter.setImageFlag(0);
+//                }
 //                查询不带图属性
                 ps = con.prepareStatement("SELECT * FROM paramWithoutImage WHERE commodity_id = ?");
                 ps.setString(1, commodityId);
@@ -144,16 +155,14 @@ public class HandleGoodsEdit extends HttpServlet {
                 while (rsParam.next()) {
                     Attribute attr = new Attribute();
                     int id = rsParam.getInt("attribute_id");
+                    String attribute = rsParam.getString("attribute");
                     if (!ids.contains(id)) {
                         ids.add(id);
                         attr.setId(id);
                         attr.setImageFlag(0);
-                    }
-                    String attribute = rsParam.getString("attribute");
-                    if (!attrs.contains(attribute)) {
-                        attrs.add(attribute);
                         attr.setAttribute(attribute);
                         attributeArrayList.add(attr);
+
                         ParamWithoutImage param = new ParamWithoutImage();
                         ArrayList<String> values = new ArrayList<>();
                         ArrayList<Integer> Ids = new ArrayList<>();
@@ -173,7 +182,8 @@ public class HandleGoodsEdit extends HttpServlet {
                         }
                     }
                 }
-                parameter.setImageParams(imageParam);
+                parameter.setImageFlag(imageParams.size());
+                parameter.setImageParams(imageParams);
                 parameter.setParams(params);
                 parameter.setAttrs(attributeArrayList);
                 break;
@@ -217,9 +227,8 @@ public class HandleGoodsEdit extends HttpServlet {
 
             Connection con;
             PreparedStatement ps;
-            String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
             try {
-                con = DriverManager.getConnection(url,"root","abcphotovalley");
+                con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
                 ps = con.prepareStatement("UPDATE commodity SET title = ?, original_price = ?, discount_price = ?, quick_review = ?, overview = ? WHERE id = ?;");
                 ps.setString(1, commodityTitle);
                 ps.setString(2, oPrice);
@@ -249,10 +258,10 @@ public class HandleGoodsEdit extends HttpServlet {
 //                修改带图属性
                 if (parameter.getImageFlag() != 0) {
                     for (int m = 0; m < parameter.getImageFlag(); m++) {
-                        for (int n = 0; n < parameter.getImageParams().getImage().size(); n++) {
+                        for (int n = 0; n < parameter.getImageParams().get(m).getImage().size(); n++) {
                             String value = req.getParameter(m+"imageValue"+n);
                             String link = req.getParameter(m+"imageParam"+n);
-                            int id = parameter.getImageParams().getValue().get(n).getId();
+                            int id = parameter.getImageParams().get(m).getValue().get(n).getId();
                             if (value == null || link == null) {
                                 ps = con.prepareStatement("DELETE FROM parameter WHERE id = ?;");
                                 ps.setInt(1, id);

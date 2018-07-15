@@ -132,16 +132,16 @@
         <% } %>
     </div>
     <% if (parameter.getImageFlag() != 0) {%>
-    <div class="layui-form-item" id="alreadyImageParam">
-        <% for (int i = 0; i < parameter.getImageFlag(); i++) {%>
-            <% for (int j = 0; j < parameter.getImageParams().getImage().size(); j++) {%>
+        <% for (int i = 0; i < parameter.getImageParams().size(); i++) {%>
+        <div class="layui-form-item">
+            <% for (int j = 0; j < parameter.getImageParams().get(i).getImage().size(); j++) {%>
             <div class="layui-inline" id="<%=i%>imageLine<%=j%>">
                 <label class="layui-form-label"><%=parameter.getAttrs().get(i).getAttribute()%></label>
                 <div class="layui-input-inline">
-                    <input type="text" id="<%=i%>imageValue<%=j%>" name="<%=i%>imageValue<%=j%>" value="<%=parameter.getImageParams().getValue().get(j).getContent()%>" lay-verify="required"  autocomplete="off" class="layui-input">
+                    <input type="text" id="<%=i%>imageValue<%=j%>" name="<%=i%>imageValue<%=j%>" value="<%=parameter.getImageParams().get(i).getValue().get(j).getContent()%>" lay-verify="required"  autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" id="<%=i%>imageParam<%=j%>" name="<%=i%>imageParam<%=j%>" value="<%=parameter.getImageParams().getImage().get(j).getUrl()%>" lay-verify="required"  autocomplete="off" class="layui-input">
+                    <input type="text" id="<%=i%>imageParam<%=j%>" name="<%=i%>imageParam<%=j%>" value="<%=parameter.getImageParams().get(i).getImage().get(j).getUrl()%>" lay-verify="required"  autocomplete="off" class="layui-input">
                 </div>
                 <button type="button" class="layui-btn layui-btn-small" id="<%=i%>chooseImageParam<%=j%>" style="margin-top: 5px">
                     <i class="layui-icon">&#xe67c;</i>
@@ -151,12 +151,12 @@
                 </button>
             </div>
             <% } %>
+        </div>
         <% } %>
-    </div>
     <% } %>
     <% if (parameter.getAttrs().size() - parameter.getImageFlag() != 0) {%>
-    <div class="layui-form-item" id="alreadyParam">
         <% for (int i = 0; i < parameter.getAttrs().size() - parameter.getImageFlag(); i++) {%>
+        <div class="layui-form-item">
             <% for (int j = 0; j < parameter.getParams().get(i).getValue().size(); j++) {%>
             <div class="layui-inline" id="<%=i%>paramLine<%=j%>">
                 <label class="layui-form-label"><%=parameter.getParams().get(i).getKey()%></label>
@@ -168,8 +168,8 @@
                 </button>
             </div>
             <% } %>
+        </div>
         <% } %>
-    </div>
     <% } %>
     <% if (attributes != null) {%>
     <div class="layui-form-item">
@@ -259,7 +259,7 @@
         // 监听带图片属性
         <% if (parameter.getImageFlag() != 0) {%>
             <% for (int i = 0; i < parameter.getImageFlag(); i++) {%>
-                <% for (int j = 0; j < parameter.getImageParams().getImage().size(); j++) {%>
+                <% for (int j = 0; j < parameter.getImageParams().get(i).getImage().size(); j++) {%>
                     upload.render({
                         elem: '#<%=i%>chooseImageParam<%=j%>'
                         ,auto: false //选择文件后不自动上传

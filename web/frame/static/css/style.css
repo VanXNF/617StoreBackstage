@@ -133,14 +133,14 @@
 }
 
 .layui-layout-admin .my-footer {
-    height: 20px;
+    background-color: #4E5465;
     align-content: center;
+    color: #FFFFFF;
     padding: 2px 0;
 }
 
 .layui-layout-admin .my-footer p {
-    height: 100%;
-    line-height: 20px;
+    padding-top: 2px;
     font-size: 12px;
     text-align: center;
 }

@@ -204,30 +204,28 @@ layui.use(['layer', 'element', 'util'], function () {
         window.delAllTab();
     });
 
-    // 打赏
-    $('.pay').on('click', function () {
-        layer.open({
-            type: 1,
-            title: false,               // 标题不显示
-            closeBtn: false,            // 关闭按钮不显示
-            shadeClose: true,           // 点击遮罩关闭
-            area: ['auto', 'auto'],      // 宽高
-            content: $('.my-pay-box')   // 弹出内容
-        });
-    });
-
     // 皮肤
     function skin() {
         var skin = localStorage.skin ? localStorage.skin : 0;
         var body = $('body');
         var logo = $('#logo');
+        var footer = $('#bodyFooter');
         var nav_toggle = $('#nav_toggle');
         if (skin == 1) {
             logo.attr("src", 'images/logo.png');
             nav_toggle.attr("src", 'images/open.png');
+            footer.css('background-color', '#FFFFFF');
+            footer.css('color', '#000000');
         } else {
             logo.attr("src", 'images/logo_white.png');
             nav_toggle.attr("src", 'images/open_white.png');
+            if (skin == 0) {
+                footer.css('background-color', '#393D49');
+                footer.css('color', '#FFFFFF');
+            } else if (skin == 2) {
+                footer.css('background-color', '#01AAED');
+                footer.css('color', '#FFFFFF');
+            }
         }
         body.removeClass('skin-0');
         body.removeClass('skin-1');

@@ -2,6 +2,8 @@ package servlet.vanxnf;
 
 import bean.vanxnf.Admin;
 import tools.Hasher;
+import tools.MySQL;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,11 +51,11 @@ public class HandleLogin extends HttpServlet {
         Connection con;
         PreparedStatement sql;
         ResultSet rs;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+
         String queryPassword = null;
         try{
 //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(), MySQL.getAccount(), MySQL.getPassword());
             sql = con.prepareStatement("SELECT * FROM admin WHERE account = ?;");
             sql.setString(1, account);
             rs = sql.executeQuery();

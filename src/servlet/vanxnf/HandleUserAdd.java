@@ -1,6 +1,7 @@
 package servlet.vanxnf;
 
 import tools.Hasher;
+import tools.MySQL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +26,7 @@ public class HandleUserAdd extends HttpServlet {
         String email = request.getParameter("email").trim();
         String avatar = request.getParameter("avatar").trim();
 
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+
         Connection con;
         PreparedStatement ps;
 
@@ -33,7 +34,7 @@ public class HandleUserAdd extends HttpServlet {
         Hasher hasher = new Hasher();
         password = hasher.encode(password);
         try {
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("INSERT INTO user(username,password,email,avatar) VALUES (?,?,?,?);");
             if (boo) {
                 ps.setString(1, userName);

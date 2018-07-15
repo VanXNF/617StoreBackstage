@@ -1,5 +1,7 @@
 package servlet.vanxnf;
 
+import tools.MySQL;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +23,10 @@ public class HandleUserDelete extends HttpServlet {
         String id = req.getParameter("id");
         Connection con;
         PreparedStatement ps;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+
         try {
             //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("DELETE FROM user WHERE id = ?;");
             ps.setString(1, id);
             int i = ps.executeUpdate();

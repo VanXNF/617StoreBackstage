@@ -1,5 +1,7 @@
 package servlet.vanxnf;
 
+import tools.MySQL;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +24,9 @@ public class HandleGoodsAdd extends HttpServlet {
         Connection con = null;
         PreparedStatement ps;
         ResultSet rs;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
         try {
 //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("INSERT INTO commodity(title,original_price,discount_price,quick_review,overview,sale_volume) VALUES ('正在编辑',0,0,'正在编辑','正在编辑',0);");
             int m = ps.executeUpdate();
             if (m != 0) {
@@ -89,10 +90,9 @@ public class HandleGoodsAdd extends HttpServlet {
         }
         Connection con;
         PreparedStatement ps;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
         try {
             //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("UPDATE commodity SET title=?,original_price=?,discount_price=?,quick_review=?,overview=? WHERE id=?;");
             ps.setString(1, commodityTitle);
             ps.setString(2, oPrice);

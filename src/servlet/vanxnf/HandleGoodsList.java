@@ -3,6 +3,7 @@ package servlet.vanxnf;
 import bean.vanxnf.Commodity;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import tools.MySQL;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,10 +29,10 @@ public class HandleGoodsList extends HttpServlet {
         Connection con;
         PreparedStatement ps;
         ResultSet rs;
-        String url = "jdbc:mysql://120.79.162.134:3306/617Store?useSSL=false&useUnicode=true&characterEncoding=utf8";
+
         try{
 //            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url,"root","abcphotovalley");
+            con = DriverManager.getConnection(MySQL.getUrl(),MySQL.getAccount(),MySQL.getPassword());
             ps = con.prepareStatement("SELECT * FROM commodity;");
             rs = ps.executeQuery();
             ArrayList<Commodity> commodities = new ArrayList<>();

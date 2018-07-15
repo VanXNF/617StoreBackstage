@@ -90,16 +90,14 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="pages/welcome.html" frameborder="0"></iframe>
+                    <iframe id="iframe" src="pages/Welcome.jsp" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
     </div>
     <!-- footer -->
-    <div class="layui-footer my-footer" style="background: #4E5465">
-        <div align="left">
-            <p>© 2018 浙江科技学院·信息与电子工程学院·软件工程 许楠钒 陈喆 </p>
-        </div>
+    <div id="bodyFooter" class="layui-footer my-footer">
+        <p>© 2018 浙江科技学院·信息与电子工程学院·软件工程 许楠钒 陈喆 </p>
     </div>
 </div>
 

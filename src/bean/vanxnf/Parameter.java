@@ -12,7 +12,8 @@ public class Parameter {
     private int imageFlag = 0;
 
     /**带图片的属性*/
-    private ParamWithImage imageParams;
+    private ArrayList<ParamWithImage> imageParams;
+//    private ParamWithImage imageParams;
 
     public ArrayList<Attribute> getAttrs() {
         return attrs;
@@ -38,11 +39,11 @@ public class Parameter {
         this.imageFlag = imageFlag;
     }
 
-    public ParamWithImage getImageParams() {
+    public ArrayList<ParamWithImage> getImageParams() {
         return imageParams;
     }
 
-    public void setImageParams(ParamWithImage imageParams) {
+    public void setImageParams(ArrayList<ParamWithImage> imageParams) {
         this.imageParams = imageParams;
     }
 }
