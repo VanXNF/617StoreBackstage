@@ -48,7 +48,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品 ID</label>
         <div class="layui-input-inline">
-            <input type="text" id="commodityID" autocomplete="off" class="layui-input layui-disabled" disabled>
+            <input type="text" id="commodityID" placeholder="请先获取ID" autocomplete="off" class="layui-input layui-disabled" disabled>
         </div>
         <input type="hidden" name="commodityID" id="cID">
         <button type="button" class="layui-btn" id="requestID">
@@ -211,7 +211,7 @@
                     '<label class="layui-form-label">'+ attr +'</label>\n' +
                     '<input class="layui-input" type="hidden" value="'+ attrId +'#'+ imageNum + '">'+
                     '<div class="layui-input-inline"><input type="text" name="'+ attrId +'value'+ imageNum + '" placeholder="请输入属性值" lay-verify="required"  autocomplete="off" class="layui-input"></div>\n' +
-                    '<div class="layui-input-inline" ><input type="text" id="file'+ imageNum +'" name="'+ attrId +'image'+ imageNum + '" placeholder="请输入图片链接" lay-verify="required"  autocomplete="off" class="layui-input image"></div>\n' +
+                    '<div class="layui-input-inline" ><input type="text" id="file'+ imageNum +'" name="'+ attrId +'image'+ imageNum + '" placeholder="请选择图片" lay-verify="required"  autocomplete="off" class="layui-input image"></div>\n' +
                     '<label for="'+ imageNum +'" class="layui-btn layui-btn-small" style="margin-top: 5px"><input type="file" class="file" style="display: none" id="'+ imageNum +'"><i class="layui-icon">&#xe67c;</i></label>\n' +
                     '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n' +
                     '</div>';
@@ -244,7 +244,7 @@
                 var ele = '<div class="layui-inline">\n' +
                     '<label class="layui-form-label">'+ attr +'</label>\n' +
                     '<input class="layui-input" type="hidden" value='+ attrId +'#'+ noneImageNum +'>'+
-                    '<div class="layui-input-inline"><input type="text" name='+ attrId +'#'+ noneImageNum +' autocomplete="off" placeholder="请输入" class="layui-input"></div>\n' +
+                    '<div class="layui-input-inline"><input type="text" name='+ attrId +'#'+ noneImageNum +' autocomplete="off" placeholder="请输入属性值" class="layui-input"></div>\n' +
                     '<button type="button" class="layui-btn layui-btn-danger layui-btn-small" style="margin-top: 5px"><i class="layui-icon">&#x1006;</i></button>\n'+
                     '</div>';
                 $("#noneImageItem").append(ele);
