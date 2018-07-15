@@ -1,7 +1,6 @@
 package bean.vanxnf;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Commodity {
 
@@ -19,7 +18,7 @@ public class Commodity {
 
     private int saleVolume;
 
-    private Date date;
+    private String date;
 
     private ArrayList<Image> mainImage;
 
@@ -79,11 +78,11 @@ public class Commodity {
         this.saleVolume = saleVolume;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

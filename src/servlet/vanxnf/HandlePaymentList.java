@@ -1,6 +1,6 @@
 package servlet.vanxnf;
 
-import bean.vanxnf.Commodity;
+import bean.vanxnf.Payment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,8 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-@WebServlet(name = "GoodsListServlet", urlPatterns = "/api/goodsList")
-public class HandleGoodsList extends HttpServlet {
+@WebServlet(name = "PaymentListServlet", urlPatterns = "/api/paymentList")
+public class HandlePaymentList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -32,27 +32,25 @@ public class HandleGoodsList extends HttpServlet {
         try{
 //            Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url,"root","abcphotovalley");
-            ps = con.prepareStatement("SELECT * FROM commodity;");
+            ps = con.prepareStatement("SELECT * FROM paymentList;");
             rs = ps.executeQuery();
-            ArrayList<Commodity> commodities = new ArrayList<>();
+            ArrayList<Payment> payments = new ArrayList<>();
             while (rs.next()) {
-                Commodity commodity = new Commodity();
-                commodity.setId(rs.getInt("id"));
-                commodity.setTitle(rs.getString("title"));
-                commodity.setOriginalPrice(rs.getDouble("original_price"));
-                commodity.setDiscountPrice(rs.getDouble("discount_price"));
-                commodity.setSaleVolume(rs.getInt("sale_volume"));
-                commodity.setQuickReview(rs.getString("quick_review"));
-                commodity.setOverview(rs.getString("overview"));
-                commodity.setDate(rs.getString("date"));
-                commodities.add(commodity);
+                Payment payment = new Payment();
+                payment.setId(rs.getInt("id"));
+                payment.setPayDate(rs.getString("pay_date"));
+                payment.setPrice(rs.getDouble("price"));
+                payment.setUserId(rs.getInt("user_id"));
+                payment.setUserName(rs.getString("username"));
+                payment.setEmail(rs.getString("email"));
+                payments.add(payment);
             }
-            JSONArray array = new JSONArray(commodities.subList(limit * (page-1),
-                    limit * page >= commodities.size() ? commodities.size() : limit * page));
+            JSONArray array = new JSONArray(payments.subList(limit * (page-1),
+                    limit * page >= payments.size() ? payments.size() : limit * page));
             JSONObject json = new JSONObject();
             json.put("code", 0);
             json.put("msg", "");
-            json.put("count", commodities.size());
+            json.put("count", payments.size());
             json.put("data", array);
             PrintWriter out = resp.getWriter();
             out.append(json.toString());

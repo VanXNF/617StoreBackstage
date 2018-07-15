@@ -84,7 +84,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">注册时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" value="<%=user.getRegisterdate().toString()%>" autocomplete="off" class="layui-input layui-disabled" disabled>
+                    <input type="text" name="date" value="<%=user.getRegisterDate().toString()%>" autocomplete="off" class="layui-input layui-disabled" disabled>
                 </div>
             </div>
         </div>

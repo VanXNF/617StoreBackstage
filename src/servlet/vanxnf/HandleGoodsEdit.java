@@ -71,7 +71,7 @@ public class HandleGoodsEdit extends HttpServlet {
                 commodity.setSaleVolume(rs.getInt("sale_volume"));
                 commodity.setQuickReview(rs.getString("quick_review"));
                 commodity.setOverview(rs.getString("overview"));
-                commodity.setDate(rs.getDate("date"));
+                commodity.setDate(rs.getString("date"));
 //                获取商品主图
                 ps = con.prepareStatement("SELECT image_id,image FROM mainPicture WHERE commodity_id = ?;");
                 ps.setString(1, commodityId);

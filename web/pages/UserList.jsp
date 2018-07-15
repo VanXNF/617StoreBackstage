@@ -40,7 +40,6 @@
         // 操作对象
         var table = layui.table
             , layer = layui.layer
-            , BackstageTable = layui.Backstage_table
             , $ = layui.jquery
             , BackstageTab = layui.Backstage_tab;
 
@@ -48,13 +47,13 @@
         var tableIns = table.render({
             elem: '#dataTable'                  //指定原始表格元素选择器（推荐id选择器）
             , cols: [[                  //标题栏
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'id', title: 'ID', width: 80, sort:true}
-                , {field: 'username', title: '用户名', width: 150}
-                , {field: 'avatar', title: '头像', width: 200}
-                , {field: 'email', title: '邮箱', width: 200}
-                , {field: 'registerdate', title: '注册时间', width: 160, sort:true}
-                , {fixed: 'right', title: '隐藏', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                {checkbox: true, sort: true, fixed: true, space: true, align:'center'}
+                , {field: 'id', title: 'ID', width: 80, sort:true, align:'center'}
+                , {field: 'username', title: '用户名', width: 150, align:'center'}
+                , {field: 'avatar', title: '头像', width: 200, align:'center'}
+                , {field: 'email', title: '邮箱', width: 200, align:'center'}
+                , {field: 'registerDate', title: '注册时间', width: 160, sort:true, align:'center'}
+                , {fixed: 'right', title: '隐藏', width: 160, align: 'center', toolbar: '#barOption'}
                 , {fixed: 'right', title: '编辑', width: 160, align: 'center', toolbar: '#go'}
             ]]
             , id: 'UserLists'
@@ -62,7 +61,7 @@
             , method: 'get'
             , page: true
             , limits: [5, 10, 15, 20, 30]
-            , limit: 15 //默认采用5
+            , limit: 15 //默认采用15
             , loading: true
             , done: function (res, curr, count) {
 
@@ -92,7 +91,7 @@
                     ,data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
             }
-            ,getCheckLength: function(){ //获取选中数目
+            , getCheckLength: function(){ //获取选中数目
                 var checkStatus = table.checkStatus('UserLists')
                     ,data = checkStatus.data;
                 layer.msg('选中了：'+ data.length + ' 个');

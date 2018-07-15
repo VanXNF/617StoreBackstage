@@ -40,7 +40,7 @@ public class HandleUserEdit extends HttpServlet {
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
-                user.setRegisterdate(rs.getDate("registerDate"));
+                user.setRegisterDate(rs.getString("registerDate"));
                 break;
             }
             session.setAttribute("user"+id, user);

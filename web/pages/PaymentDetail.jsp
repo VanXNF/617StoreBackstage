@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: VanXN
-  Date: 2018/7/12
-  Time: 18:36
+  Date: 2018/7/15
+  Time: 8:57
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,11 +13,12 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>商品列表</title>
+    <title>订单详情</title>
     <link rel="stylesheet" href="../frame/layui/css/layui.css">
     <link rel="stylesheet" href="../frame/static/css/style.css">
     <link rel="icon" href="../images/favicon.png">
 </head>
+<% String id = request.getParameter("id");%>
 <body class="body">
 
 <!-- 工具集 -->
@@ -39,31 +40,26 @@
         // 操作对象
         var table = layui.table
             , layer = layui.layer
-            , BackstageTable = layui.Backstage_table
-            , $ = layui.jquery
-            , BackstageTab = layui.Backstage_tab;
+            , $ = layui.jquery;
 
         // 表格渲染
         var tableIns = table.render({
             elem: '#dataTable'                  //指定原始表格元素选择器（推荐id选择器）
             , cols: [[                  //标题栏
                 {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'id', title: 'ID', sort:true, width: 80, align:'center'}
-                , {field: 'title', title: '商品标题', width: 300, align:'center'}
-                , {field: 'originalPrice', title: '原价', sort:true, width: 80, align:'center'}
-                , {field: 'discountPrice', title: '现价', sort:true, width: 80, align:'center'}
-                , {field: 'quickReview', title: '简介', width: 200, align:'center'}
-                , {field: 'overview', title: '详细介绍', width: 200, align:'center'}
-                , {field: 'saleVolume', title: '销量', sort:true, width: 80, align:'center'}
-                , {field: 'date', title: '发布时间', sort:true, width: 160, align:'center'}
-                , {fixed: 'right', title: '编辑', align: 'center', toolbar: '#go', width:160}
+                , {field: 'commodityId', title: '商品ID', width: 160, sort:true, align:'center'}
+                , {field: 'title', title: '商品名', width: 200, align:'center'}
+                , {field: 'quantity', title: '数量', width: 80, sort:true, align:'center'}
+                , {field: 'sumPrice', title: '金额', width: 100, align:'center'}
+                , {field: 'attrWithImage', title: '带图属性', width: 200, align:'center'}
+                , {field: 'attrWithoutImage', title: '无图属性', width: 200, align:'center'}
             ]]
-            , id: 'GoodsLists'
-            , url: '/api/goodsList'
+            , id: 'OrderDetail'
+            , url: '/api/orderDetail?id='+<%=id%>
             , method: 'get'
             , page: true
             , limits: [5, 10, 15, 20, 30]
-            , limit: 15 //默认采用5
+            , limit: 15 //默认采用15
             , loading: true
             , done: function (res, curr, count) {
 
@@ -75,31 +71,20 @@
             tableIns.reload();
         });
 
-        table.on('tool(tables)', function(obj) {
-            var data = obj.data;
-            if(obj.event === 'edit') {
-                BackstageTab.add($(this), "编辑"+ data[''+'id'+''] +"号商品信息", '/api/goodsEdit?id='+ data[''+'id'+'']);
-            }
-        });
-
         var $ = layui.$, active = {
             getCheckData: function(){ //获取选中数据
-                var checkStatus = table.checkStatus('GoodsLists')
+                var checkStatus = table.checkStatus('OrderDetail')
                     ,data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
             }
         };
 
-        $('.toolTable .layui-btn').on('click', function() {
+        $('.toolTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
 
     });
-</script>
-
-<script type="text/html" id="go">
-    <button type="button" class="layui-btn layui-btn-small add-tab2" lay-event="edit">编辑详情</button>
 </script>
 
 </body>

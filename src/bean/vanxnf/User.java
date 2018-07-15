@@ -1,6 +1,6 @@
 package bean.vanxnf;
-import java.util.Date;
 
+/**单个用户信息*/
 public class User {
 
     private int id;
@@ -13,7 +13,7 @@ public class User {
 
     private String avatar;
 
-    private Date registerdate;
+    private String registerDate;
 
     public int getId() {
         return id;
@@ -55,11 +55,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Date getRegisterdate() {
-        return registerdate;
+    public String getRegisterDate() {
+        return registerDate;
     }
 
-    public void setRegisterdate(Date registerdate) {
-        this.registerdate = registerdate;
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
     }
 }

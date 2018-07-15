@@ -19,13 +19,9 @@
       "icon": "&#xe628;",
       "subset": [
         {
-          "text": "未完成订单",
-          "icon": "&#xe621;",
-          "href": ""
-        },{
           "text": "历史订单",
           "icon": "&#xe621;",
-          "href": ""
+          "href": "pages/PaymentList.jsp"
         }
       ]
     },{
@@ -33,13 +29,13 @@
       "icon": "&#xe628;",
       "subset": [
         {
-          "text": "用户列表",
-          "icon": "&#xe621;",
-          "href": "pages/UserList.jsp"
-        },{
           "text": "新增用户",
           "icon": "&#xe621;",
           "href": "pages/AddUser.jsp"
+        },{
+          "text": "用户列表",
+          "icon": "&#xe621;",
+          "href": "pages/UserList.jsp"
         }
       ]
     },{

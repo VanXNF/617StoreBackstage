@@ -40,7 +40,7 @@ public class HandleUserList extends HttpServlet {
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
-                user.setRegisterdate(rs.getDate("registerDate"));
+                user.setRegisterDate(rs.getString("registerDate"));
                 users.add(user);
             }
             JSONArray array = new JSONArray(users.subList(limit * (page-1),

@@ -69,15 +69,14 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理订单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="pages/login.html"><i class="layui-icon">&#xe621;</i>未完成订单</a></dd>
-                        <dd><a href="javascript:;" href-url="pages/register.html"><i class="layui-icon">&#xe621;</i>历史订单</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/PaymentList.jsp"><i class="layui-icon">&#xe621;</i>历史订单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon">&#xe628;</i>管理用户</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="pages/UserList.jsp"><i class="layui-icon">&#xe621;</i>用户列表</a></dd>
                         <dd><a href="javascript:;" href-url="pages/AddUser.jsp"><i class="layui-icon">&#xe621;</i>新增用户</a></dd>
+                        <dd><a href="javascript:;" href-url="pages/UserList.jsp"><i class="layui-icon">&#xe621;</i>用户列表</a></dd>
                     </dl>
                 </li>
             </ul>
