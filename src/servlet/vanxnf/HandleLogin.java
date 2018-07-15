@@ -24,7 +24,7 @@ public class HandleLogin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("application/text; charset=utf-8");
+        response.setContentType("text/html; charset=utf-8");
         request.setCharacterEncoding("utf-8");
         String account = request.getParameter("account").trim();
         String password = request.getParameter("password").trim();

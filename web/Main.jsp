@@ -1,5 +1,6 @@
+<%@ page import="bean.vanxnf.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="admin" class="bean.vanxnf.Admin" scope="session" />
+<%--<jsp:useBean id="admin" class="bean.vanxnf.Admin" scope="session" />--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +12,16 @@
     <link rel="stylesheet" href="frame/layui/css/layui.css">
     <link rel="stylesheet" href="frame/static/css/style.css">
     <link rel="icon" href="images/favicon.png">
-    <%  Object object = session.getAttribute("admin");
-        if (object == null) {
-            response.sendRedirect("Login.jsp");
+    <%
+        Admin admin = null;
+        Object object = session.getAttribute("admin");
+        if (object instanceof Admin) {
+            admin = (Admin) object;
         }
     %>
 </head>
 <body>
+<% if (admin != null) {%>
 <!-- layout admin -->
 <div class="layui-layout layui-layout-admin">
     <!-- header -->
@@ -46,7 +50,7 @@
             <%--账号操作--%>
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;">
-                    <i class="layui-icon">&#9784;</i><jsp:getProperty name="admin" property="account"/>
+                    <i class="layui-icon">&#9784;</i><%=admin.getAccount()%>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
@@ -131,5 +135,26 @@ layui.use(['layer','Backstage_nav'], function () {
 
 });
 </script>
+<% } else {%>
+<div class="my-page-box">
+    <h3>Forbidden</h3>
+    <p class="msg">禁止访问</p>
+    <p class="text">对不起, 请登录后使用本系统</p>
+    <div></div>
+</div>
+<script type="text/javascript">
+    var myTime = setTimeout("Timeout()", 5000);
+    function resetTime() {
+        clearTimeout(myTime);
+        myTime = setTimeout('Timeout()', 5000);
+    }
+    function Timeout() {
+
+        document.location.href='Login.jsp';
+    }
+    document.documentElement.onkeydown=resetTime;
+    document.doocumentElement.onclick=resetTime;
+</script>
+<% } %>
 </body>
 </html>
